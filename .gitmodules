@@ -1,0 +1,3 @@
+[submodule "JS/labs"]
+	path = JS/labs
+	url = https://github.com/ApostolQleg/labs
