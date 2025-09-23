@@ -2,7 +2,8 @@
   "C_Cpp.default.compilerPath": "D:/msys64/ucrt64/bin/gcc.exe",
   "files.associations": {
     "string": "c",
-    "format": "c"
+    "format": "c",
+    "stdio.h": "c"
   },
   "C_Cpp_Runner.cCompilerPath": "gcc",
   "C_Cpp_Runner.cppCompilerPath": "g++",
