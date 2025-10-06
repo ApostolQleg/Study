@@ -16,6 +16,7 @@ int main(void)
         P *= (2 * i * log(i + 3)) / S; // +2 для *, +1 для ln, +1 для +, +1 для /, +1 для =
         ops += 11;                     // +11 до кількості операцій
     }
+
     printf("P = %.7lf\n", P);
     printf("Number of operations: %d\n", ops);
     return 0;
