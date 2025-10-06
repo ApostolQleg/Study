@@ -3,23 +3,26 @@
 
 int main(void)
 {
-    double n;
+    int n;
     printf("Enter n: ");
-    scanf("%lf", &n);
-    double P = 1.0;
-    int operations = 0;
-    for (int i = 1; i <= n; i++)
+    scanf("%d", &n);
+    double P = 1.0; // +1 для ініціалізацій P
+    int ops = 2;    // +1 для ініціалізацій i; початкове кількість операцій = 2
+
+    for (int i = 1; i <= n; i++) // +1 для <=, +1 для ++ (+2 операції на кожну ітерацію)
     {
-        int S = 0;
-        for (int j = 1; j <= i; j++)
+        int S = 0; // +1 для ініціалізації S
+
+        for (int j = 1; j <= i; j++) // +1 для <=, +1 для ++ (+2 операції на кожну ітерацію)
         {
-            S += (2 * j) + 1;
-            operations += 3; // 1 для додавання, 1 для множення, 1 для присвоєння
+            S += (2 * j) + 1; // +1 для +, +1 для *, +1 для =
+            ops += 5;         // +5 до кількості операцій
         }
-        P *= (2 * i * log(i + 3)) / S;
-        operations += 6; // 2 для множення, 1 для ln, 1 для додавання, 1 для ділення, 1 для присвоєння
+
+        P *= (2 * i * log(i + 3)) / S; // +2 для *, +1 для ln, +1 для +, +1 для /, +1 для =
+        ops += 10;                     // +10 до кількості операцій
     }
     printf("P = %.7lf\n", P);
-    printf("Number of operations: %d\n", operations);
+    printf("Number of operations: %d\n", ops);
     return 0;
 }
