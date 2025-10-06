@@ -6,9 +6,9 @@ int main(void)
     int n;
     printf("Enter n: ");
     scanf("%d", &n);
-    double P = 1.0; // +1 для ініціалізацій P
-    int S = 0;      // +1 для ініціалізації S
-    int ops = 3;    // +1 для ініціалізації i; початкова кількість операцій = 3
+    double P = 1.0;
+    int S = 0;
+    int ops = 0; // початкова кількість операцій = 0
 
     for (int i = 1; i <= n; i++) // +1 для <=, +1 для ++ (+2 операції на кожну ітерацію)
     {
@@ -17,7 +17,6 @@ int main(void)
         ops += 11;                     // +11 до кількості операцій
     }
 
-    printf("P = %.7lf\n", P);
-    printf("Number of operations: %d\n", ops);
+    printf("P = %.7lf\nNumber of operations: %d\n", P, ops);
     return 0;
 }

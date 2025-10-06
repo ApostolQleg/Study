@@ -6,12 +6,12 @@ int main(void)
     int n;
     printf("Enter n: ");
     scanf("%d", &n);
-    double P = 1.0; // +1 для ініціалізацій P
-    int ops = 2;    // +1 для ініціалізацій i; початкове кількість операцій = 2
+    double P = 1.0;
+    int ops = 0; // початкове кількість операцій = 0
 
     for (int i = 1; i <= n; i++) // +1 для <=, +1 для ++ (+2 операції на кожну ітерацію)
     {
-        int S = 0; // +1 для ініціалізації S
+        int S = 0;
 
         for (int j = 1; j <= i; j++) // +1 для <=, +1 для ++ (+2 операції на кожну ітерацію)
         {
@@ -20,10 +20,9 @@ int main(void)
         }
 
         P *= (2 * i * log(i + 3)) / S; // +2 для *, +1 для ln, +1 для +, +1 для /, +1 для =
-        ops += 10;                     // +10 до кількості операцій
+        ops += 8;                      // +8 до кількості операцій
     }
 
-    printf("P = %.7lf\n", P);
-    printf("Number of operations: %d\n", ops);
+    printf("P = %.7lf\nNumber of operations: %d\n", P, ops);
     return 0;
 }
