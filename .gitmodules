@@ -1,3 +1,6 @@
 [submodule "JS/labs"]
 	path = JS/labs
 	url = https://github.com/ApostolQleg/labs
+[submodule "JS/projects/project"]
+	path = JS/projects/project
+	url = https://github.com/ApostolQleg/project
