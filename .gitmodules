@@ -4,3 +4,6 @@
 [submodule "JS/projects/project"]
 	path = JS/projects/project
 	url = https://github.com/ApostolQleg/project
+[submodule "JS/projects/quizes-site"]
+	path = JS/projects/quizes-site
+	url = https://github.com/ApostolQleg/quizes-site
