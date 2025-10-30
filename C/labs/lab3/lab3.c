@@ -9,73 +9,53 @@ int main(int argc, char *argv[])
         system("start lab3.exe --terminal");
         return 0;
     }
-
     HANDLE hout = GetStdHandle(STD_OUTPUT_HANDLE);
     COORD pos;
-    const int rows = 24;
-    const int cols = 80;
+    int rows = 24;
+    int cols = 80;
 
-    int left = 0, right = cols - 1;
-    int top = 0, bottom = rows - 1;
+    int rowCord = rows / 2 - 1;
+    int colCord = cols - rowCord - 2;
 
-    int hor_length = 61;
-    int ver_length = 1;
-    int direction = 0;
-    system("cls");
+    pos.X = colCord;
+    pos.Y = rowCord;
 
-    while (left <= right && top <= bottom)
+    colCord = colCord - rowCord;
+    rowCord = rows / 2 - rowCord;
+
+    int direction = 0; // 0 - left/down, 1 - right/up
+    while (colCord < 80 || rowCord < 24)
     {
-        // рух вправо
-        for (int x = left; x <= right; x++)
+        // Move horizontally
+        for (int i = 0; i < colCord; i++)
         {
-            pos.X = x;
-            pos.Y = top;
             SetConsoleCursorPosition(hout, pos);
-            putchar('*');
-            fflush(stdout);
+            printf("*");
             usleep(1000);
+            fflush(stdout);
+            if (direction == 0)
+                pos.X--;
+            else
+                pos.X++;
         }
-        top++;
-        if (top > bottom) break;
+        colCord++;
 
-        // рух вниз
-        for (int y = top; y <= bottom; y++)
+        // Move vertically
+        for (int i = 0; i < rowCord; i++)
         {
-            pos.X = right;
-            pos.Y = y;
             SetConsoleCursorPosition(hout, pos);
-            putchar('*');
-            fflush(stdout);
+            printf("*");
             usleep(1000);
-        }
-        right--;
-        if (left > right) break;
-
-        // рух вліво
-        for (int x = right; x >= left; x--)
-        {
-            pos.X = x;
-            pos.Y = bottom;
-            SetConsoleCursorPosition(hout, pos);
-            putchar('*');
             fflush(stdout);
-            usleep(1000);
+            if (direction == 0)
+                pos.Y++;
+            else
+                pos.Y--;
         }
-        bottom--;
-        if (top > bottom) break;
-
-        // рух вгору
-        for (int y = bottom; y >= top; y--)
-        {
-            pos.X = left;
-            pos.Y = y;
-            SetConsoleCursorPosition(hout, pos);
-            putchar('*');
-            fflush(stdout);
-            usleep(1000);
-        }
-        left++;
+        rowCord++;
+        direction = !direction;
     }
+
     COORD endPos = {0, rows};
     SetConsoleCursorPosition(hout, endPos);
     getchar();
