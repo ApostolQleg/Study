@@ -14,48 +14,49 @@ int main(int argc, char *argv[])
     int rows = 24;
     int cols = 80;
 
-    int rowCord = rows / 2 - 1;
-    int colCord = cols - rowCord - 2;
+    pos.X = cols - rows / 2;
+    pos.Y = rows / 2 - 1;
 
-    pos.X = colCord;
-    pos.Y = rowCord;
-
-    colCord = colCord - rowCord;
-    rowCord = rows / 2 - rowCord;
+    int colCord = cols - rows + 1;
+    int rowCord = 1;
 
     int direction = 0; // 0 - left/down, 1 - right/up
-    while (colCord < 80 || rowCord < 24)
+    while (colCord < 81 && rowCord < 25)
     {
         // Move horizontally
-        for (int i = 0; i < colCord; i++)
+        if (colCord < 81)
         {
-            SetConsoleCursorPosition(hout, pos);
-            printf("*");
-            usleep(1000);
-            fflush(stdout);
-            if (direction == 0)
-                pos.X--;
-            else
-                pos.X++;
+            for (int i = 0; i < colCord; i++)
+            {
+                SetConsoleCursorPosition(hout, pos);
+                printf("*");
+                usleep(1000);
+                fflush(stdout);
+                if (direction == 0)
+                    pos.X--;
+                else
+                    pos.X++;
+            }
+            colCord++;
         }
-        colCord++;
-
-        // Move vertically
-        for (int i = 0; i < rowCord; i++)
+        if (rowCord < 24)
         {
-            SetConsoleCursorPosition(hout, pos);
-            printf("*");
-            usleep(1000);
-            fflush(stdout);
-            if (direction == 0)
-                pos.Y++;
-            else
-                pos.Y--;
+            // Move vertically
+            for (int i = 0; i < rowCord; i++)
+            {
+                SetConsoleCursorPosition(hout, pos);
+                printf("*");
+                usleep(1000);
+                fflush(stdout);
+                if (direction == 0)
+                    pos.Y++;
+                else
+                    pos.Y--;
+            }
+            rowCord++;
+            direction = !direction;
         }
-        rowCord++;
-        direction = !direction;
     }
-
     COORD endPos = {0, rows};
     SetConsoleCursorPosition(hout, endPos);
     getchar();
