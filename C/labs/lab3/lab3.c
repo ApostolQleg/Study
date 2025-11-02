@@ -17,16 +17,16 @@ int main(int argc, char *argv[])
     pos.X = cols - rows / 2;
     pos.Y = rows / 2 - 1;
 
-    int colCord = cols - rows + 1;
-    int rowCord = 1;
+    int colCoord = cols - rows + 1;
+    int rowCoord = 1;
 
     int direction = 0; // 0 - left/down, 1 - right/up
-    while (colCord < 81 && rowCord < 25)
+    while (colCoord < 81 && rowCoord < 25)
     {
         // Move horizontally
-        if (colCord < 81)
+        if (colCoord < 81)
         {
-            for (int i = 0; i < colCord; i++)
+            for (int i = 0; i < colCoord; i++)
             {
                 SetConsoleCursorPosition(hout, pos);
                 printf("*");
@@ -37,12 +37,12 @@ int main(int argc, char *argv[])
                 else
                     pos.X++;
             }
-            colCord++;
+            colCoord++;
         }
-        if (rowCord < 24)
+        if (rowCoord < 24)
         {
             // Move vertically
-            for (int i = 0; i < rowCord; i++)
+            for (int i = 0; i < rowCoord; i++)
             {
                 SetConsoleCursorPosition(hout, pos);
                 printf("*");
@@ -53,9 +53,9 @@ int main(int argc, char *argv[])
                 else
                     pos.Y--;
             }
-            rowCord++;
-            direction = !direction;
+            rowCoord++;
         }
+        direction = !direction;
     }
     COORD endPos = {0, rows};
     SetConsoleCursorPosition(hout, endPos);
