@@ -7,3 +7,6 @@
 [submodule "JS/projects/quizes-site"]
 	path = JS/projects/quizes-site
 	url = https://github.com/ApostolQleg/quizes-site
+[submodule "JS/projects/quizzes-site--React-"]
+	path = JS/projects/quizzes-site--React-
+	url = https://github.com/ApostolQleg/quizzes-site--React-
