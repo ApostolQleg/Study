@@ -19,13 +19,13 @@ int main()
 
     for (int i = 1; i < n; i++)
     {
-        int T = A[i][i];
+        int diag = A[i][i];
         int L = 0, R = i;
 
         while (L < R)
         {
             int j = (L + R) / 2;
-            if (A[j][j] < T)
+            if (A[j][j] < diag)
                 R = j;
             else
                 L = j + 1;
@@ -36,7 +36,7 @@ int main()
             A[k + 1][k + 1] = A[k][k];
         }
 
-        A[R][R] = T;
+        A[R][R] = diag;
     }
 
     printf("\nMatrix after sorting main diagonal (non-increasing order):\n");
