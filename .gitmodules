@@ -10,3 +10,6 @@
 [submodule "JS/projects/QuizTime-React"]
 	path = JS/projects/QuizTime-React
 	url = https://github.com/ApostolQleg/QuizTime-React
+[submodule "JS/projects/QuizTime-React-backend"]
+	path = JS/projects/QuizTime-React-backend
+	url = https://github.com/ApostolQleg/QuizTime-React-backend
