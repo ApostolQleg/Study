@@ -1,7 +1,8 @@
 #include <stdio.h>
 #include <math.h>
 
-/* * Рекурсивна функція для обчислення на рекурсивному спуску.
+/*
+ * Рекурсивна функція для обчислення на рекурсивному спуску.
  * i - поточний крок
  * n - цільова кількість членів ряду
  * x - аргумент
@@ -24,7 +25,7 @@ double sum_descent_recursive(int i, int n, double x, double current_F, double cu
 }
 
 /*
- * Функція-обгортка для ініціалізації початкових значень
+ * Функція-обгортка
  */
 double calculate_sum_descent(int n, double x)
 {
