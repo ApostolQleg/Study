@@ -42,7 +42,7 @@ int main()
     int n;
     double x;
 
-    printf("Enter the number of terms in the series (n >= 1): ");
+    printf("Enter the number of terms (n >= 1): ");
     scanf("%d", &n);
 
     if (n < 1)
@@ -51,7 +51,7 @@ int main()
         return 1;
     }
 
-    printf("Enter the value of x (|x| < 1): ");
+    printf("Enter the value of x (|x| < 1):     ");
     scanf("%lf", &x);
 
     if (fabs(x) >= 1.0)
@@ -60,10 +60,10 @@ int main()
         return 1;
     }
 
-    // Обчислення суми ряду рекурсивним алгоритмом
+    // Обчислення суми ряду рекурсивним алгоритмом (спуск)
     double result = calculate_sum_descent(n, x);
 
-    // Обчислення точного значення функції: 1 / cbrt(1 + x)
+    // Обчислення точного значення функції
     double exact_value = 1.0 / cbrt(1.0 + x);
 
     // Обчислення похибки
@@ -72,9 +72,9 @@ int main()
     printf("\nYou entered n = %d,\nand x = %.8f\n", n, x);
 
     printf("\nResults:\n");
-    printf("The sum of the first %d terms of the series (Descent): %.8f\n", n, result);
-    printf("The exact value of 1 / cbrt(1 + x):     %.8f\n", exact_value);
-    printf("Absolute error:                    %.8f\n", error);
+    printf("The sum of the first %d terms of the series (Descent):  %.8f\n", n, result);
+    printf("The exact value of 1 / cbrt(1 + x):                    %.8f\n", exact_value);
+    printf("Absolute error:                                        %.8f\n", error);
 
     return 0;
 }

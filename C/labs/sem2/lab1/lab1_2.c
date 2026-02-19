@@ -57,7 +57,7 @@ int main()
     int n;
     double x;
 
-    printf("Enter the number of terms in the series (n >= 1): ");
+    printf("Enter the number of terms (n >= 1): ");
     scanf("%d", &n);
 
     if (n < 1)
@@ -66,7 +66,7 @@ int main()
         return 1;
     }
 
-    printf("Enter the value of x (|x| < 1): ");
+    printf("Enter the value of x (|x| < 1):     ");
     scanf("%lf", &x);
 
     if (fabs(x) >= 1.0)
@@ -75,7 +75,7 @@ int main()
         return 1;
     }
 
-    // Обчислення суми ряду на поверненні
+    // Обчислення суми ряду рекурсивним алгоритмом (підйом)
     double result = calculate_sum_ascent(n, x);
 
     // Обчислення точного значення функції
@@ -87,9 +87,9 @@ int main()
     printf("\nYou entered n = %d,\nand x = %.8f\n", n, x);
 
     printf("\nResults:\n");
-    printf("The sum of the first %d terms of the series (Ascent): %.8f\n", n, result);
-    printf("The exact value of 1 / cbrt(1 + x):    %.8f\n", exact_value);
-    printf("Absolute error:                   %.8f\n", error);
+    printf("The sum of the first %d terms of the series (Ascent):   %.8f\n", n, result);
+    printf("The exact value of 1 / cbrt(1 + x):                    %.8f\n", exact_value);
+    printf("Absolute error:                                        %.8f\n", error);
 
     return 0;
 }
