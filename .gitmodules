@@ -5,11 +5,11 @@
 	path = JS/projects/project
 	url = https://github.com/ApostolQleg/project
 [submodule "JS/projects/QuizTime-without-React"]
-	path = JS/projects/QuizTime-without-React
-	url = https://github.com/ApostolQleg/QuizTime-without-React
+	path = JS/projects/QuizTime-old
+	url = https://github.com/ApostolQleg/QuizTime-old
 [submodule "JS/projects/QuizTime-React"]
-	path = JS/projects/QuizTime-React
-	url = https://github.com/ApostolQleg/QuizTime-React
+	path = JS/projects/QuizTime
+	url = https://github.com/ApostolQleg/QuizTime
 [submodule "JS/projects/QuizTime-React-backend"]
-	path = JS/projects/QuizTime-React-backend
-	url = https://github.com/ApostolQleg/QuizTime-React-backend
+	path = JS/projects/QuizTime-backend
+	url = https://github.com/ApostolQleg/QuizTime-backend
