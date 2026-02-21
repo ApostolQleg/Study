@@ -1,5 +1,5 @@
 [submodule "JS/labs"]
-	path = JS/labs
+	path = JS/labs-Programming-Basics
 	url = https://github.com/ApostolQleg/labs
 [submodule "JS/projects/project"]
 	path = JS/projects/project
