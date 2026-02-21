@@ -1,6 +1,6 @@
-[submodule "JS/labs"]
+[submodule "JS/labs-Programming-Basics"]
 	path = JS/labs-Programming-Basics
-	url = https://github.com/ApostolQleg/labs
+	url = https://github.com/ApostolQleg/labs-Programming-Basics
 [submodule "JS/projects/project"]
 	path = JS/projects/project
 	url = https://github.com/ApostolQleg/project
@@ -13,3 +13,6 @@
 [submodule "JS/projects/QuizTime-React-backend"]
 	path = JS/projects/QuizTime-backend
 	url = https://github.com/ApostolQleg/QuizTime-backend
+[submodule "C/labs-Algorithms-and-Data-Structures"]
+	path = C/labs-Algorithms-and-Data-Structures
+	url = https://github.com/ApostolQleg/labs-Algorithms-and-Data-Structures
