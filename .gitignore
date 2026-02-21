@@ -124,3 +124,6 @@ lerna-debug.log*
 # Coverage testing
 coverage/
 .nyc_output/
+
+# tests
+tests.*
