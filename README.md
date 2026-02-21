@@ -15,6 +15,10 @@ This repository contains various educational materials, assignments, and project
 
 This space serves as a centralized archive for my academic coursework, lecture notes, and practical exercises. It documents my learning progress and academic journey throughout my university studies. Not only. There is some studies in here I've done myself.
 
+## License
+
+This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) file for details.
+
 ---
 
 _Feel free to explore the repository or reach out if you have any questions._
