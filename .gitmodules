@@ -10,10 +10,10 @@
 [submodule "JS/projects/QuizTime-old"]
 	path = JS/projects/QuizTime-old
 	url = https://github.com/ApostolQleg/QuizTime-old
-[submodule "JS/projects/QuizTime-frontend"]
+[submodule "JS/projects/QuizTime/QuizTime-frontend"]
 	path = JS/projects/QuizTime/QuizTime-frontend
 	url = https://github.com/ApostolQleg/QuizTime
-[submodule "JS/projects/QuizTime-backend"]
+[submodule "JS/projects/QuizTime/QuizTime-backend"]
 	path = JS/projects/QuizTime/QuizTime-backend
 	url = https://github.com/ApostolQleg/QuizTime-backend
 	
