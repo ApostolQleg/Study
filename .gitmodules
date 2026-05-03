@@ -16,4 +16,6 @@
 [submodule "JS/projects/QuizTime/QuizTime-backend"]
 	path = JS/projects/QuizTime/QuizTime-backend
 	url = https://github.com/ApostolQleg/QuizTime-backend
-	
+[submodule "JS/labs-Computer-Networks-Basics"]
+	path = JS/labs-Computer-Networks-Basics
+	url = https://github.com/ApostolQleg/labs-Computer-Networks-Basics
