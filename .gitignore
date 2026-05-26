@@ -99,6 +99,7 @@ build/
 node_modules/
 jspm_packages/
 .npm/
+C/libs/
 
 # Production builds
 dist/
