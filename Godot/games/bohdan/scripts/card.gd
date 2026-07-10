@@ -7,9 +7,6 @@ func _ready() -> void:
 	# All cards must be a child of CardManager or this will error
 	get_parent().connect_card_signals(self)
 
-func _process(_delta: float) -> void:
-	pass
-
 func _on_area_2d_mouse_entered() -> void:
 	if get_parent().card_dragged == self:
 		return

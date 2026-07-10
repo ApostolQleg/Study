@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://buwf0dj6vh0fj"]
+
+[ext_resource type="Script" uid="uid://d1ht1ibhh5e0v" path="res://scripts/camera_manager.gd" id="1_utxs1"]
+
+[node name="CameraManager" type="Node2D" unique_id=177025298]
+script = ExtResource("1_utxs1")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=2073398878]
+unique_name_in_owner = true

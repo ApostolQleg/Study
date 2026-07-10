@@ -1,17 +1,17 @@
 [gd_scene format=3 uid="uid://dplqtdwpmp4ga"]
 
 [ext_resource type="Script" uid="uid://bp0nert6iyuki" path="res://scripts/card.gd" id="1_6u4wf"]
-[ext_resource type="Texture2D" uid="uid://b42bw4umn1vnd" path="res://assets/sprites/card_demo.png" id="1_d81rb"]
+[ext_resource type="Texture2D" uid="uid://doag17m4n6x7h" path="res://assets/sprites/card-demo-1.png" id="2_6u4wf"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3kys0"]
-size = Vector2(84, 120)
+size = Vector2(46, 62)
 
 [node name="Card" type="Node2D" unique_id=1910659693]
 script = ExtResource("1_6u4wf")
 
 [node name="CardImage" type="Sprite2D" parent="." unique_id=1197805695]
-scale = Vector2(2, 2)
-texture = ExtResource("1_d81rb")
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_6u4wf")
 
 [node name="Area2D" type="Area2D" parent="." unique_id=1661160360]
 
