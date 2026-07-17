@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://umexwkfkylwe"]
+
+[ext_resource type="Texture2D" uid="uid://bl5nv5w6s2j1j" path="res://assets/sprites/altars.png" id="1_hwdfh"]
+[ext_resource type="Script" uid="uid://fbx0ceoeony1" path="res://scripts/altar.gd" id="1_si8oa"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_si8oa"]
+
+[node name="Altar" type="Node2D" unique_id=1733910354]
+script = ExtResource("1_si8oa")
+current_faction = 4
+
+[node name="Base" type="Sprite2D" parent="." unique_id=1589682212]
+texture = ExtResource("1_hwdfh")
+hframes = 4
+frame = 3
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=299088190]
+collision_layer = 2
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=141151283]
+shape = SubResource("RectangleShape2D_si8oa")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1555453365]
+collision_layer = 4
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=298834136]
+shape = SubResource("RectangleShape2D_si8oa")

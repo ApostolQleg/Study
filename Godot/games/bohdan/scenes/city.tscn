@@ -1,0 +1,35 @@
+[gd_scene format=3 uid="uid://b8ij87e5ned34"]
+
+[ext_resource type="Texture2D" uid="uid://b16agmtyhi8dd" path="res://assets/sprites/static_structures.png" id="1_58ubr"]
+[ext_resource type="Script" uid="uid://7w33f0yh8nwl" path="res://scripts/city.gd" id="1_rqxma"]
+[ext_resource type="Texture2D" uid="uid://iofpxk8vy0s0" path="res://assets/sprites/factions.png" id="2_rqxma"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rqxma"]
+
+[node name="City" type="Node2D" unique_id=1291576534]
+script = ExtResource("1_rqxma")
+current_faction = 4
+
+[node name="Base" type="Sprite2D" parent="." unique_id=1698731896]
+texture = ExtResource("1_58ubr")
+region_enabled = true
+region_rect = Rect2(0, 0, 16, 16)
+
+[node name="Faction" type="Sprite2D" parent="." unique_id=744588953]
+texture = ExtResource("2_rqxma")
+hframes = 4
+frame = 3
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1443504153]
+collision_layer = 2
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=266104418]
+shape = SubResource("RectangleShape2D_rqxma")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=661332277]
+collision_layer = 4
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1610649340]
+shape = SubResource("RectangleShape2D_rqxma")

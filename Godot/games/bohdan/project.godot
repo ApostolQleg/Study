@@ -10,7 +10,7 @@ config_version=5
 
 [application]
 
-config/name="Bohdan"
+config/name="Bohdan (4.7)"
 run/main_scene="uid://bvork3weksj80"
 config/features=PackedStringArray("4.7", "GL Compatibility")
 run/max_fps=200
@@ -27,6 +27,12 @@ window/stretch/mode="canvas_items"
 [gui]
 
 theme/default_font_multichannel_signed_distance_field=true
+
+[layer_names]
+
+2d_physics/layer_1="Player"
+2d_physics/layer_2="Obstacles"
+2d_physics/layer_3="Interactives"
 
 [physics]
 

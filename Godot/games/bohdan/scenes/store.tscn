@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://dxo7s3if78om0"]
+
+[ext_resource type="Script" uid="uid://c5cpcss0fturg" path="res://scripts/store.gd" id="1_atuvt"]
+[ext_resource type="Texture2D" uid="uid://4tx58k3v46lx" path="res://assets/sprites/stores.png" id="1_jmp1n"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_atuvt"]
+
+[node name="Store" type="Node2D" unique_id=1463407269]
+script = ExtResource("1_atuvt")
+current_faction = 4
+
+[node name="Base" type="Sprite2D" parent="." unique_id=1952652418]
+texture = ExtResource("1_jmp1n")
+hframes = 4
+frame = 3
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=148136037]
+collision_layer = 2
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=1794101364]
+shape = SubResource("RectangleShape2D_atuvt")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=2072782462]
+collision_layer = 4
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=566285908]
+shape = SubResource("RectangleShape2D_atuvt")
