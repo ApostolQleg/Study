@@ -1,4 +1,3 @@
-@tool
 class_name BaseBuilding
 extends Node2D
 

@@ -1,6 +1,10 @@
 class_name MapGenerator
 extends Node
 
+@export_group("Ocean Settings")
+@export var ocean_width: int = 250
+@export var ocean_height: int = 200
+
 @export_group("Base Map Settings")
 @export var map_radius: int = 50
 @export var padding: int = 5
@@ -43,10 +47,12 @@ func _ready() -> void:
 	
 	generate_new_map()
 
+
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventKey and event.pressed and not event.is_echo():
 		if event.physical_keycode == KEY_R:
 			generate_new_map()
+
 
 func _reposition_player(grid: Dictionary) -> void:
 	var player = get_parent().get_node_or_null("Player")
@@ -75,13 +81,18 @@ func _reposition_player(grid: Dictionary) -> void:
 	
 	player.position = Vector2(world_x, world_y)
 
+
 func _init_seeds() -> void:
 	noise.seed = randi()
 	noise_grass.seed = randi()
 
+
 func _generate_base_grid() -> Dictionary:
 	var grid := {}
 	var full_radius := map_radius + padding
+	
+	var half_w : int = floor(ocean_width / 2.0)
+	var half_h : int = floor(ocean_height / 2.0)
 	
 	var river_angle := randf_range(0.0, PI * 2.0)
 	var river_width := float(randi_range(river_width_row - 1, river_width_row + 1))
@@ -101,9 +112,14 @@ func _generate_base_grid() -> Dictionary:
 		var jitter := randf_range(-step_size * bridge_jitter_factor, step_size * bridge_jitter_factor)
 		bridges_t.append(base_t + jitter)
 
-	for x in range(-full_radius, full_radius + 1):
-		for y in range(-full_radius, full_radius + 1):
+	for x in range(-half_w, half_w + 1):
+		for y in range(-half_h, half_h + 1):
 			var cell := Vector2i(x, y)
+			
+			if abs(x) > full_radius or abs(y) > full_radius:
+				grid[cell] = "water"
+				continue
+			
 			var radial_gradient := 1.0 - (cell.length() / map_radius)
 			
 			var base_type := "water"
@@ -133,13 +149,14 @@ func _generate_base_grid() -> Dictionary:
 				
 	return grid
 
+
 func _filter_isolated_islands(grid: Dictionary) -> void:
 	var visited := {}
 	var queue : Array[Vector2i] = []
 	
 	var centre := Vector2i(0, 0)
 	if grid.get(centre, "water") == "water":
-		var found_land := false
+		var land_found := false
 		for r in range(1, map_radius):
 			var search_directions := [
 				Vector2i(r, 0), Vector2i(-r, 0), Vector2i(0, r), Vector2i(0, -r),
@@ -148,9 +165,9 @@ func _filter_isolated_islands(grid: Dictionary) -> void:
 			for dir in search_directions:
 				if grid.get(dir, "water") == "land":
 					centre = dir
-					found_land = true
+					land_found = true
 					break
-			if found_land:
+			if land_found:
 				break
 	
 	if grid.get(centre, "water") == "water":
@@ -176,6 +193,7 @@ func _filter_isolated_islands(grid: Dictionary) -> void:
 		if grid[cell] == "land" and not visited.has(cell):
 			grid[cell] = "water"
 
+
 func _generate_terrain_biomes(grid: Dictionary) -> Dictionary:
 	var terrain_map := {}
 	for cell in grid:
@@ -190,6 +208,7 @@ func _generate_terrain_biomes(grid: Dictionary) -> Dictionary:
 			else:
 				terrain_map[cell] = autotiler.ID_MEDIUM_GRASS
 	return terrain_map
+
 
 func _fix_terrain_transitions(terrain_map: Dictionary) -> void:
 	var directions_8: Array[Vector2i] = [
@@ -239,10 +258,12 @@ func _fix_terrain_transitions(terrain_map: Dictionary) -> void:
 		if safety_counter > max_smoothing_passes:
 			break
 
+
 func _draw_to_autotiler(terrain_map: Dictionary) -> void:
 	for cell in terrain_map:
 		var tile_id: int = terrain_map[cell]
 		autotiler.set_cell(cell, 0, Vector2i(tile_id, 0))
+
 
 func generate_new_map() -> void:
 	if not autotiler: return

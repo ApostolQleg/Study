@@ -1,4 +1,3 @@
-@tool
 class_name Chest
 extends Node2D
 
@@ -10,11 +9,10 @@ var current_state: State = State.CLOSED
 @onready var area_2d: Area2D = $Area2D
 
 func _ready() -> void:
-	if not Engine.is_editor_hint():
-		current_state = State.CLOSED
+	current_state = State.CLOSED
 	_update_visuals()
 	
-	if not Engine.is_editor_hint() and area_2d:
+	if area_2d:
 		area_2d.mouse_entered.connect(_on_mouse_entered)
 		area_2d.mouse_exited.connect(_on_mouse_exited)
 		area_2d.input_event.connect(_on_input_event)

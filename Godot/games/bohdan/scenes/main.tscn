@@ -4,14 +4,9 @@
 [ext_resource type="PackedScene" uid="uid://dplqtdwpmp4ga" path="res://scenes/card.tscn" id="2_sugp2"]
 [ext_resource type="PackedScene" uid="uid://buwf0dj6vh0fj" path="res://scenes/camera_manager.tscn" id="4_jyhfs"]
 [ext_resource type="Texture2D" uid="uid://cbycfbbuphm32" path="res://assets/tilemaps/terrain_placeholders.png" id="5_tefeu"]
-[ext_resource type="PackedScene" uid="uid://umexwkfkylwe" path="res://scenes/altar.tscn" id="6_choun"]
 [ext_resource type="Script" uid="uid://yq0u2iu6cxss" path="res://scripts/dual_grid_autotiler.gd" id="6_trceg"]
 [ext_resource type="Texture2D" uid="uid://d3q7jy00niles" path="res://assets/tilemaps/terrain_v9.png" id="7_o6xl0"]
-[ext_resource type="PackedScene" uid="uid://cvpffyqln6k6h" path="res://scenes/capital.tscn" id="7_ya4ey"]
 [ext_resource type="PackedScene" uid="uid://bb50yhonf1fl0" path="res://scenes/player.tscn" id="10_eb6dy"]
-[ext_resource type="PackedScene" uid="uid://dxo7s3if78om0" path="res://scenes/store.tscn" id="10_trceg"]
-[ext_resource type="PackedScene" uid="uid://ebc66h6q6kv6" path="res://scenes/chest.tscn" id="11_a8y0u"]
-[ext_resource type="PackedScene" uid="uid://b8ij87e5ned34" path="res://scenes/city.tscn" id="12_jkv2x"]
 [ext_resource type="Script" uid="uid://faqfg4q2kthg" path="res://scripts/map_generator.gd" id="13_trceg"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_tefeu"]
@@ -119,97 +114,10 @@ script = ExtResource("6_trceg")
 position = Vector2(-8, -8)
 tile_set = SubResource("TileSet_2vebc")
 
-[node name="Objects" type="Node2D" parent="World" unique_id=2090090475]
-z_index = 1
-y_sort_enabled = true
-
-[node name="AltarKing" parent="World/Objects" unique_id=1733910354 instance=ExtResource("6_choun")]
-position = Vector2(232, 104)
-current_faction = 1
-
-[node name="AltarChrist" parent="World/Objects" unique_id=352839666 instance=ExtResource("6_choun")]
-position = Vector2(232, 136)
-current_faction = 2
-
-[node name="AltarDruid" parent="World/Objects" unique_id=1338651013 instance=ExtResource("6_choun")]
-position = Vector2(232, 168)
-current_faction = 3
-
-[node name="AltarSatan" parent="World/Objects" unique_id=473082693 instance=ExtResource("6_choun")]
-position = Vector2(232, 200)
-
-[node name="Chest" parent="World/Objects" unique_id=49330682 instance=ExtResource("11_a8y0u")]
-position = Vector2(200, 72)
-
-[node name="Chest2" parent="World/Objects" unique_id=1544670105 instance=ExtResource("11_a8y0u")]
-position = Vector2(232, 72)
-
-[node name="Chest3" parent="World/Objects" unique_id=801197019 instance=ExtResource("11_a8y0u")]
-position = Vector2(264, 72)
-
-[node name="Chest4" parent="World/Objects" unique_id=94986722 instance=ExtResource("11_a8y0u")]
-position = Vector2(296, 72)
-
-[node name="Chest5" parent="World/Objects" unique_id=1944505644 instance=ExtResource("11_a8y0u")]
-position = Vector2(328, 72)
-
-[node name="StoreKing" parent="World/Objects" unique_id=1463407269 instance=ExtResource("10_trceg")]
-position = Vector2(264, 104)
-current_faction = 1
-
-[node name="StoreChrist" parent="World/Objects" unique_id=2044031073 instance=ExtResource("10_trceg")]
-position = Vector2(264, 136)
-current_faction = 2
-
-[node name="StoreDruid" parent="World/Objects" unique_id=1707491580 instance=ExtResource("10_trceg")]
-position = Vector2(264, 168)
-current_faction = 3
-
-[node name="StoreSatan" parent="World/Objects" unique_id=2009934716 instance=ExtResource("10_trceg")]
-position = Vector2(264, 200)
-
-[node name="CapitalKing" parent="World/Objects" unique_id=2093043062 instance=ExtResource("7_ya4ey")]
-position = Vector2(200, 104)
-animation_speed_fps = 5.0
-current_faction = 1
-
-[node name="CapitalChrist" parent="World/Objects" unique_id=1234333798 instance=ExtResource("7_ya4ey")]
-position = Vector2(200, 136)
-animation_speed_fps = 0.5
-current_faction = 2
-
-[node name="CapitalDruid" parent="World/Objects" unique_id=645963841 instance=ExtResource("7_ya4ey")]
-position = Vector2(200, 168)
-animation_speed_fps = 1.5
-current_faction = 3
-
-[node name="CapitalSatan" parent="World/Objects" unique_id=2099409583 instance=ExtResource("7_ya4ey")]
-position = Vector2(200, 200)
-animation_speed_fps = 1.0
-
-[node name="CityNeutral" parent="World/Objects" unique_id=1291576534 instance=ExtResource("12_jkv2x")]
-position = Vector2(168, 72)
-current_faction = 0
-
-[node name="CityKing" parent="World/Objects" unique_id=395283375 instance=ExtResource("12_jkv2x")]
-position = Vector2(168, 104)
-current_faction = 1
-
-[node name="CityChrist" parent="World/Objects" unique_id=469741591 instance=ExtResource("12_jkv2x")]
-position = Vector2(168, 136)
-current_faction = 2
-
-[node name="CityDruid" parent="World/Objects" unique_id=1683981979 instance=ExtResource("12_jkv2x")]
-position = Vector2(168, 168)
-current_faction = 3
-
-[node name="CitySatan" parent="World/Objects" unique_id=291146204 instance=ExtResource("12_jkv2x")]
-position = Vector2(168, 200)
-
 [node name="Player" parent="World" unique_id=833988511 instance=ExtResource("10_eb6dy")]
 z_index = 1
 y_sort_enabled = true
-position = Vector2(328, 184)
+position = Vector2(-8, -8)
 
 [node name="MapGenerator" type="Node2D" parent="World" unique_id=1405842990]
 script = ExtResource("13_trceg")
