@@ -1,0 +1,41 @@
+[gd_scene format=3 uid="uid://ircwpe8mnkur"]
+
+[ext_resource type="Texture2D" uid="uid://b16agmtyhi8dd" path="res://entities/structures/static_structures.png" id="1_ktxwe"]
+[ext_resource type="Script" uid="uid://b77q3ugd0t6iv" path="res://entities/structures/tower/tower.gd" id="1_qrbg1"]
+[ext_resource type="Texture2D" uid="uid://dd76bsof561iq" path="res://entities/structures/tower/animated_tower.png" id="2_qrbg1"]
+[ext_resource type="Texture2D" uid="uid://iofpxk8vy0s0" path="res://entities/structures/factions.png" id="3_jfguu"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_85u2j"]
+size = Vector2(16, 16)
+
+[node name="Tower" type="Node2D" unique_id=95200185]
+y_sort_enabled = true
+script = ExtResource("1_qrbg1")
+
+[node name="Base" type="Sprite2D" parent="." unique_id=882330230]
+texture = ExtResource("1_ktxwe")
+region_enabled = true
+region_rect = Rect2(32, 0, 16, 16)
+
+[node name="Roof" type="Sprite2D" parent="." unique_id=1894374472]
+position = Vector2(0, -16)
+texture = ExtResource("2_qrbg1")
+hframes = 3
+
+[node name="Faction" type="Sprite2D" parent="." unique_id=1504550514]
+texture = ExtResource("3_jfguu")
+hframes = 4
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1564970881]
+collision_layer = 2
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=1689214700]
+shape = SubResource("RectangleShape2D_85u2j")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=255710548]
+collision_layer = 4
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=544095166]
+shape = SubResource("RectangleShape2D_85u2j")

@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://dplqtdwpmp4ga"]
+
+[ext_resource type="Script" uid="uid://bp0nert6iyuki" path="res://entities/card/card.gd" id="1_lxn7g"]
+[ext_resource type="Texture2D" uid="uid://v4fy1ke38i30" path="res://entities/card/card_bases.png" id="2_lxn7g"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6u4wf"]
+atlas = ExtResource("2_lxn7g")
+region = Rect2(19, 2, 90, 124)
+
+[node name="Card" type="Control" unique_id=845550508]
+custom_minimum_size = Vector2(90, 124)
+layout_mode = 3
+anchor_right = 0.141
+anchor_bottom = 0.344
+offset_right = -0.2400055
+offset_bottom = 0.15999603
+script = ExtResource("1_lxn7g")
+
+[node name="Base" type="TextureRect" parent="." unique_id=2013552098]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(45, 62)
+texture = SubResource("AtlasTexture_6u4wf")
+expand_mode = 1
+stretch_mode = 5
+script = ExtResource("1_lxn7g")
