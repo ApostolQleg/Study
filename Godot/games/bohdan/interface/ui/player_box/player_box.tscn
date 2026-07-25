@@ -1,0 +1,86 @@
+[gd_scene format=3 uid="uid://coaih52hdqxm7"]
+
+[ext_resource type="PackedScene" uid="uid://djyg26f55ld1e" path="res://interface/ui/player_box/player_info/player_info.tscn" id="1_0e8ho"]
+[ext_resource type="PackedScene" uid="uid://b6jbanpkuaiin" path="res://interface/ui/faction_bar/faction_bar.tscn" id="2_yeed3"]
+[ext_resource type="Texture2D" uid="uid://d2mqxyp0v1k77" path="res://interface/ui/wood.png" id="3_rrrec"]
+[ext_resource type="PackedScene" uid="uid://dplqtdwpmp4ga" path="res://entities/card/card.tscn" id="4_k8ycp"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rqiw2"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gdt2y"]
+bg_color = Color(0.24705882, 0.12156863, 0, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 4
+border_width_bottom = 8
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+anti_aliasing = false
+
+[node name="PlayerBox" type="PanelContainer" unique_id=1826194959]
+custom_minimum_size = Vector2(300, 150)
+offset_right = 200.0
+offset_bottom = 94.0
+pivot_offset_ratio = Vector2(1, 0)
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_rqiw2")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1393076170]
+layout_mode = 2
+
+[node name="InfoPanel" type="MarginContainer" parent="VBoxContainer" unique_id=772170023]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="HeaderRow" type="HBoxContainer" parent="VBoxContainer/InfoPanel" unique_id=996825048]
+layout_mode = 2
+
+[node name="PlayerInfo" parent="VBoxContainer/InfoPanel/HeaderRow" unique_id=588894285 instance=ExtResource("1_0e8ho")]
+custom_minimum_size = Vector2(10, 10)
+layout_mode = 2
+theme_override_constants/separation = 6
+is_compact = true
+
+[node name="Spacer" type="Control" parent="VBoxContainer/InfoPanel/HeaderRow" unique_id=248566204]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="FactionBar" parent="VBoxContainer/InfoPanel/HeaderRow" unique_id=1303980243 instance=ExtResource("2_yeed3")]
+custom_minimum_size = Vector2(200, 30)
+layout_mode = 2
+
+[node name="CardPanel" type="PanelContainer" parent="VBoxContainer" unique_id=232496688]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_gdt2y")
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/CardPanel" unique_id=1291344550]
+show_behind_parent = true
+layout_mode = 2
+texture = ExtResource("3_rrrec")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/CardPanel" unique_id=259643622]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="CardContainer" type="HBoxContainer" parent="VBoxContainer/CardPanel/MarginContainer" unique_id=487897372]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="Card" parent="VBoxContainer/CardPanel/MarginContainer/CardContainer" unique_id=845550508 instance=ExtResource("4_k8ycp")]
+custom_minimum_size = Vector2(60, 84)
+layout_mode = 2
+current_faction = 1

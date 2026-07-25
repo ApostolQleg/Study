@@ -10,16 +10,15 @@ config_version=5
 
 [application]
 
-config/name="Bohdan (4.7)"
-run/main_scene="uid://bvork3weksj80"
+config/name="Bohdan"
+run/main_scene="uid://5ffbc1r3re0o"
 config/features=PackedStringArray("4.7", "GL Compatibility")
 run/max_fps=200
-config/icon="res://icon.svg"
 
 [display]
 
-window/size/viewport_width=640
-window/size/viewport_height=360
+window/size/viewport_width=1280
+window/size/viewport_height=720
 window/size/window_width_override=1920
 window/size/window_height_override=1080
 window/stretch/mode="canvas_items"
@@ -27,6 +26,7 @@ window/stretch/mode="canvas_items"
 [gui]
 
 theme/default_font_multichannel_signed_distance_field=true
+theme/custom_font="uid://jgv88f60q8tg"
 
 [layer_names]
 

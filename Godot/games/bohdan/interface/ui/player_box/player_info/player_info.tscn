@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://djyg26f55ld1e"]
+
+[ext_resource type="Script" uid="uid://cv4t3ryl7ax4l" path="res://interface/ui/player_box/player_info/player_info.gd" id="1_02uxs"]
+[ext_resource type="Texture2D" uid="uid://da6h67xo5n0em" path="res://interface/ui/player_box/player_info/default_icon.png" id="2_kphq4"]
+[ext_resource type="FontFile" uid="uid://cuhjqidghnmi2" path="res://assets/fonts/PixelOperator8-Bold.ttf" id="3_sudl2"]
+
+[node name="PlayerInfo" type="HBoxContainer" unique_id=588894285]
+custom_minimum_size = Vector2(100, 32)
+offset_right = 28.0
+offset_bottom = 8.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_filter = 2
+script = ExtResource("1_02uxs")
+
+[node name="Avatar" type="TextureRect" parent="." unique_id=853526708]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("2_kphq4")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Nickname" type="Label" parent="." unique_id=1402497860]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_sudl2")
+text = "Player 1"
+vertical_alignment = 1
