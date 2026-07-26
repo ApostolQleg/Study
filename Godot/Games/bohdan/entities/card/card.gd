@@ -1,14 +1,6 @@
 extends Control
 
-enum Faction { 
-	NEUTRAL,
-	KING,
-	CHRIST,
-	DRUID,
-	SATAN
-}
-
-@export var current_faction: Faction = Faction.NEUTRAL:
+@export var current_faction: Util.Faction = Util.Faction.NEUTRAL:
 	set(value):
 		current_faction = value
 		_update_visuals()

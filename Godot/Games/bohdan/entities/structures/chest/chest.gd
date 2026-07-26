@@ -47,3 +47,5 @@ func open_chest() -> void:
 
 func _spawn_loot() -> void:
 	print("Chest is opened")
+	var loot = "loot"
+	SignalBus.chest_opened.emit(loot)

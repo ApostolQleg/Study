@@ -8,7 +8,7 @@ const TILE_SIZE: int = 16
 var autotiler: DualGridAutotiler
 
 func _ready() -> void:
-	autotiler = get_tree().current_scene.find_child("DualGridAutotiler") as DualGridAutotiler
+	autotiler = Global.autotiler
 	position = position.snapped(Vector2.ONE * TILE_SIZE) + Vector2(TILE_SIZE / 2.0, TILE_SIZE / 2.0)
 
 func _unhandled_input(event: InputEvent) -> void:

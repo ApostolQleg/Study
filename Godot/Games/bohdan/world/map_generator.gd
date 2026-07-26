@@ -1,11 +1,11 @@
 class_name MapGenerator
 extends Node
 
-enum CellType { WATER, LAND }
+signal world_generated(bounds: Rect2)
 
 @export_group("Ocean Settings")
-@export var ocean_width: int = 500
-@export var ocean_height: int = 400
+@export var ocean_width: int = 1600
+@export var ocean_height: int = 900
 
 @export_group("Base Map Settings")
 @export var map_radius: int = 50
@@ -48,7 +48,7 @@ var noise_grass: FastNoiseLite
 var autotiler: DualGridAutotiler
 
 func _ready() -> void:
-	autotiler = get_parent().get_node_or_null("DualGridAutotiler")
+	autotiler = Global.autotiler
 	
 	noise = FastNoiseLite.new()
 	noise.noise_type = FastNoiseLite.TYPE_SIMPLEX
@@ -57,85 +57,68 @@ func _ready() -> void:
 	noise_grass = FastNoiseLite.new()
 	noise_grass.noise_type = FastNoiseLite.TYPE_SIMPLEX
 	noise_grass.frequency = grass_noise_frequency
-	
-	generate_new_map()
-
 
 func _unhandled_input(event: InputEvent) -> void:
-	if event is InputEventKey and event.pressed and not event.is_echo():
-		if event.physical_keycode == KEY_R:
-			generate_new_map()
-
+	if event.is_action_pressed("generate_map"):
+		generate_new_map()
 
 func _reposition_player(grid: Dictionary) -> void:
 	var player = get_parent().get_node_or_null("Player")
 	if not player: 
 		return
 		
-	var spawn_cell := Vector2i(0, 0)
-	
-	if grid.get(spawn_cell, CellType.WATER) == CellType.WATER:
-		var land_found := false
-		for r in range(1, map_radius):
-			var search_directions := [
-				Vector2i(r, 0), Vector2i(-r, 0), Vector2i(0, r), Vector2i(0, -r),
-				Vector2i(r, r), Vector2i(-r, r), Vector2i(r, -r), Vector2i(-r, -r)
-			]
-			for dir in search_directions:
-				if grid.get(dir, CellType.WATER) == CellType.LAND:
-					spawn_cell = dir
-					land_found = true
-					break
-			if land_found:
-				break
+	var spawn_cell := _find_nearest_land(grid)
 				
 	var world_x := float(spawn_cell.x * tile_size + (tile_size / 2.0))
 	var world_y := float(spawn_cell.y * tile_size + (tile_size / 2.0))
 	
 	player.position = Vector2(world_x, world_y)
 
-
 func _init_seeds() -> void:
+	randomize()
 	noise.seed = randi()
 	noise_grass.seed = randi()
 
+func _find_nearest_land(grid: Dictionary, start_cell: Vector2i = Vector2i.ZERO) -> Vector2i:
+	if grid.get(start_cell, Util.CellType.WATER) == Util.CellType.LAND:
+		return start_cell   
+		   
+	for r in range(1, map_radius):
+		for dir in DIRECTIONS_8:
+			var target_cell: Vector2i = start_cell + (dir * r)
+			if grid.get(target_cell, Util.CellType.WATER) == Util.CellType.LAND:
+				return target_cell
+	
+	return start_cell
 
 func _generate_base_grid() -> Dictionary:
 	var grid := {}
 	var full_radius := map_radius + padding
-	
-	var half_w : int = floor(ocean_width / 2.0)
-	var half_h : int = floor(ocean_height / 2.0)
 
-	for x in range(-half_w, half_w + 1):
-		for y in range(-half_h, half_h + 1):
+	for x in range(-full_radius, full_radius + 1):
+		for y in range(-full_radius, full_radius + 1):
 			var cell := Vector2i(x, y)
 			
-			if abs(x) > full_radius or abs(y) > full_radius:
-				grid[cell] = CellType.WATER
-				continue
-			
-			var radial_gradient := 1.0 - (cell.length() / map_radius)
-			var base_type := CellType.WATER
+			var radial_gradient := 1.0 - (cell.length() / float(map_radius))
+			var base_type := Util.CellType.WATER
 			
 			if radial_gradient > 0.0:
 				var noise_val := noise.get_noise_2dv(cell)
 				var final_gradient := radial_gradient + (noise_val * noise_influence)
 				if final_gradient >= threshold:
-					base_type = CellType.LAND
+					base_type = Util.CellType.LAND
 			
 			grid[cell] = base_type
 				
 	return grid
 
-
 func _init_rivers() -> Array:
-	var rivers := []
+	var rivers: Array[Dictionary] = []
 	
 	for i in range(0, river_quantity):
 		var river_angle := randf_range(0.0, PI * 2.0)
 		var river_length := map_radius * RIVER_LENGTH_FACTOR
-		var river_parts := randi_range(river_quantity + 1, river_quantity + 3)
+		var river_parts := randi_range(2, river_quantity + 3)
 		var step_size := river_length / river_parts
 		var bridges: Array[float] = []
 		for j in range(1, river_parts):
@@ -155,19 +138,17 @@ func _init_rivers() -> Array:
 	
 	return rivers
 
-
 func _carve_rivers(grid: Dictionary) -> void:
 	var rivers := _init_rivers()
 	
 	for cell in grid:
-		if grid[cell] == CellType.WATER:
+		if grid[cell] == Util.CellType.WATER:
 			continue
 			
 		for river in rivers:
 			if _check_cell_for_river(cell, river):
-				grid[cell] = CellType.WATER
+				grid[cell] = Util.CellType.WATER
 				break
-
 
 func _check_cell_for_river(cell: Vector2i, river: Dictionary) -> bool:
 	var distance_along_river: float = -cell.x * river["sin_a"] + cell.y * river["cos_a"]
@@ -190,7 +171,6 @@ func _check_cell_for_river(cell: Vector2i, river: Dictionary) -> bool:
 		
 	return false
 
-
 func _smooth_river_banks(grid: Dictionary) -> void:
 	var keep_smoothing := true
 	var safety_counter := 0
@@ -199,18 +179,18 @@ func _smooth_river_banks(grid: Dictionary) -> void:
 		var changes := {}
 		
 		for cell in grid:
-			if grid[cell] != CellType.LAND:
+			if grid[cell] != Util.CellType.LAND:
 				continue
 				
 			var water_neighbors := 0
 			for direction in DIRECTIONS_8:
 				var neighbor: Vector2i = cell + direction
 				
-				if not grid.has(neighbor) or grid[neighbor] == CellType.WATER:
+				if not grid.has(neighbor) or grid[neighbor] == Util.CellType.WATER:
 					water_neighbors += 1
 			
 			if water_neighbors >= 5:
-				changes[cell] = CellType.WATER
+				changes[cell] = Util.CellType.WATER
 		
 		if changes.is_empty():
 			keep_smoothing = false
@@ -222,28 +202,13 @@ func _smooth_river_banks(grid: Dictionary) -> void:
 		if safety_counter > max_smoothing_passes:
 			break
 
-
 func _filter_isolated_islands(grid: Dictionary) -> void:
 	var visited := {}
 	var queue : Array[Vector2i] = []
 	
-	var centre := Vector2i(0, 0)
-	if grid.get(centre, CellType.WATER) == CellType.WATER:
-		var land_found := false
-		for r in range(1, map_radius):
-			var search_directions := [
-				Vector2i(r, 0), Vector2i(-r, 0), Vector2i(0, r), Vector2i(0, -r),
-				Vector2i(r, r), Vector2i(-r, r), Vector2i(r, -r), Vector2i(-r, -r)
-			]
-			for dir in search_directions:
-				if grid.get(dir, CellType.WATER) == CellType.LAND:
-					centre = dir
-					land_found = true
-					break
-			if land_found:
-				break
+	var centre := _find_nearest_land(grid)
 	
-	if grid.get(centre, CellType.WATER) == CellType.WATER:
+	if grid.get(centre, Util.CellType.WATER) == Util.CellType.WATER:
 		return
 		
 	visited[centre] = true
@@ -256,30 +221,28 @@ func _filter_isolated_islands(grid: Dictionary) -> void:
 		
 		for direction in DIRECTIONS_4:
 			var neighbor: Vector2i = current + direction
-			if grid.has(neighbor) and grid[neighbor] == CellType.LAND and not visited.has(neighbor):
+			if grid.has(neighbor) and grid[neighbor] == Util.CellType.LAND and not visited.has(neighbor):
 				visited[neighbor] = true
 				queue.append(neighbor)
 	
 	for cell in grid:
-		if grid[cell] == CellType.LAND and not visited.has(cell):
-			grid[cell] = CellType.WATER
-
+		if grid[cell] == Util.CellType.LAND and not visited.has(cell):
+			grid[cell] = Util.CellType.WATER
 
 func _generate_terrain_biomes(grid: Dictionary) -> Dictionary:
 	var terrain_map := {}
 	for cell in grid:
-		if grid[cell] == CellType.WATER:
-			terrain_map[cell] = autotiler.ID_WATER
+		if grid[cell] == Util.CellType.WATER:
+			terrain_map[cell] = Util.TerrainType.ID_WATER
 		else:
 			var noise_val := noise_grass.get_noise_2dv(cell)
 			if noise_val < -medium_grass_percentage:
-				terrain_map[cell] = autotiler.ID_DARK_GRASS
+				terrain_map[cell] = Util.TerrainType.ID_DARK_GRASS
 			elif noise_val > medium_grass_percentage:
-				terrain_map[cell] = autotiler.ID_LIGHT_GRASS
+				terrain_map[cell] = Util.TerrainType.ID_LIGHT_GRASS
 			else:
-				terrain_map[cell] = autotiler.ID_MEDIUM_GRASS
+				terrain_map[cell] = Util.TerrainType.ID_MEDIUM_GRASS
 	return terrain_map
-
 
 func _fix_terrain_transitions(terrain_map: Dictionary) -> void:
 	var keep_smoothing := true
@@ -290,7 +253,7 @@ func _fix_terrain_transitions(terrain_map: Dictionary) -> void:
 		
 		for cell in terrain_map:
 			var cell_id: int = terrain_map[cell]
-			if cell_id == autotiler.ID_WATER:
+			if cell_id == Util.TerrainType.ID_WATER:
 				continue
 				
 			var max_possible := cell_id
@@ -323,12 +286,11 @@ func _fix_terrain_transitions(terrain_map: Dictionary) -> void:
 		if safety_counter > max_smoothing_passes:
 			break
 
-
 func _draw_to_autotiler(terrain_map: Dictionary) -> void:
 	for cell in terrain_map:
 		var tile_id: int = terrain_map[cell]
-		autotiler.set_cell(cell, 0, Vector2i(tile_id, 0))
-
+		if tile_id != Util.TerrainType.ID_WATER:
+			autotiler.set_cell(cell, 0, Vector2i(tile_id, 0))
 
 func generate_new_map() -> void:
 	if not autotiler: return
@@ -351,3 +313,25 @@ func generate_new_map() -> void:
 	_draw_to_autotiler(terrain_map)
 	
 	autotiler.refresh_visual_layer()
+	
+	var bounds := get_world_bounds()
+	_update_ocean_background(bounds)
+	
+	world_generated.emit(get_world_bounds())
+
+func _update_ocean_background(bounds: Rect2) -> void:
+	var ocean_bg = get_parent().get_node_or_null("OceanBackground") as TextureRect
+	if not ocean_bg:
+		return
+		
+	ocean_bg.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+	ocean_bg.stretch_mode = TextureRect.STRETCH_TILE
+	ocean_bg.position = bounds.position
+	ocean_bg.size = bounds.size
+
+func get_world_bounds() -> Rect2:
+	var half_w_px := (ocean_width / 2.0) * tile_size
+	var half_h_px := (ocean_height / 2.0) * tile_size
+	var top_left := Vector2(-half_w_px, -half_h_px)
+	var size := Vector2(ocean_width * tile_size, ocean_height * tile_size)
+	return Rect2(top_left, size)

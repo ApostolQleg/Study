@@ -1,11 +1,16 @@
 [gd_scene format=3 uid="uid://dc3vyxoakfed1"]
 
 [ext_resource type="PackedScene" uid="uid://buwf0dj6vh0fj" path="res://world/camera/camera_manager.tscn" id="1_7mycd"]
+[ext_resource type="Script" uid="uid://c50iechxpmlde" path="res://main.gd" id="1_272bh"]
 [ext_resource type="Texture2D" uid="uid://cbycfbbuphm32" path="res://world/tilemaps/terrain_placeholders.png" id="2_7mycd"]
 [ext_resource type="Script" uid="uid://yq0u2iu6cxss" path="res://world/dual_grid_autotiler.gd" id="3_5vw27"]
 [ext_resource type="Texture2D" uid="uid://d3q7jy00niles" path="res://world/tilemaps/terrain_v9.png" id="4_272bh"]
 [ext_resource type="Script" uid="uid://faqfg4q2kthg" path="res://world/map_generator.gd" id="5_4c57u"]
 [ext_resource type="PackedScene" uid="uid://clcpa8peuod2x" path="res://interface/ui/ui.tscn" id="6_efxa6"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3kys0"]
+atlas = ExtResource("4_272bh")
+region = Rect2(0, 48, 16, 16)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_tefeu"]
 resource_name = "Terrain"
@@ -73,29 +78,66 @@ texture = ExtResource("4_272bh")
 [sub_resource type="TileSet" id="TileSet_2vebc"]
 sources/0 = SubResource("TileSetAtlasSource_tipki")
 
-[node name="Main" type="Node2D" unique_id=1812540794]
+[node name="Main" type="Node" unique_id=1059368609]
+process_mode = 3
+script = ExtResource("1_272bh")
 
-[node name="CameraManager" parent="." unique_id=177025298 instance=ExtResource("1_7mycd")]
+[node name="Systems" type="Node" parent="." unique_id=1078153870]
 
 [node name="World" type="Node2D" parent="." unique_id=897136923]
+process_mode = 1
 y_sort_enabled = true
 
-[node name="DualGridAutotiler" type="TileMapLayer" parent="World" unique_id=485272164]
+[node name="CameraManager" parent="World" unique_id=177025298 instance=ExtResource("1_7mycd")]
+unique_name_in_owner = true
+
+[node name="WorldRoot" type="Node2D" parent="World" unique_id=265436433]
+unique_name_in_owner = true
+
+[node name="OceanBackground" type="TextureRect" parent="World/WorldRoot" unique_id=396935599]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = SubResource("AtlasTexture_3kys0")
+
+[node name="DualGridAutotiler" type="TileMapLayer" parent="World/WorldRoot" unique_id=485272164]
 tile_set = SubResource("TileSet_u8bmk")
 script = ExtResource("3_5vw27")
 
-[node name="VisualLayer" type="TileMapLayer" parent="World/DualGridAutotiler" unique_id=143826919]
+[node name="VisualLayer" type="TileMapLayer" parent="World/WorldRoot/DualGridAutotiler" unique_id=143826919]
 position = Vector2(-8, -8)
 tile_set = SubResource("TileSet_2vebc")
 
-[node name="MapGenerator" type="Node2D" parent="World" unique_id=1405842990]
+[node name="MapGenerator" type="Node2D" parent="World/WorldRoot" unique_id=1405842990]
 script = ExtResource("5_4c57u")
+map_radius = 230
 
-[node name="Objects" type="Node2D" parent="World" unique_id=2143092057]
-z_index = 1
+[node name="EntityRoot" type="Node2D" parent="World" unique_id=1548129002]
+unique_name_in_owner = true
+y_sort_enabled = true
 
-[node name="Players" type="Node2D" parent="World" unique_id=581451044]
+[node name="EffectRoot" type="Node2D" parent="World" unique_id=519269940]
+unique_name_in_owner = true
 
-[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=944525096]
+[node name="HudLayer" type="CanvasLayer" parent="." unique_id=944525096]
+process_mode = 1
+layer = 10
 
-[node name="UI" parent="CanvasLayer" unique_id=1546889528 instance=ExtResource("6_efxa6")]
+[node name="UI" parent="HudLayer" unique_id=1546889528 instance=ExtResource("6_efxa6")]
+
+[node name="PauseLayer" type="CanvasLayer" parent="." unique_id=1850486249]
+process_mode = 2
+layer = 20
+
+[node name="DebugLayer" type="CanvasLayer" parent="." unique_id=1626718567]
+process_mode = 3
+layer = 128

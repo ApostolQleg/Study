@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://ircwpe8mnkur"]
 
-[ext_resource type="Texture2D" uid="uid://b16agmtyhi8dd" path="res://entities/structures/static_structures.png" id="1_ktxwe"]
 [ext_resource type="Script" uid="uid://b77q3ugd0t6iv" path="res://entities/structures/tower/tower.gd" id="1_qrbg1"]
 [ext_resource type="Texture2D" uid="uid://dd76bsof561iq" path="res://entities/structures/tower/animated_tower.png" id="2_qrbg1"]
+[ext_resource type="Texture2D" uid="uid://ch5s714l3ucjr" path="res://entities/structures/tower/static_tower.png" id="2_rkjxp"]
 [ext_resource type="Texture2D" uid="uid://iofpxk8vy0s0" path="res://entities/structures/factions.png" id="3_jfguu"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_85u2j"]
@@ -13,8 +13,7 @@ y_sort_enabled = true
 script = ExtResource("1_qrbg1")
 
 [node name="Base" type="Sprite2D" parent="." unique_id=882330230]
-texture = ExtResource("1_ktxwe")
-region_enabled = true
+texture = ExtResource("2_rkjxp")
 region_rect = Rect2(32, 0, 16, 16)
 
 [node name="Roof" type="Sprite2D" parent="." unique_id=1894374472]

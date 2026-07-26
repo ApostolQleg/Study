@@ -7,20 +7,18 @@ var visual_layer: TileMapLayer:
 			_visual_layer_cache = get_node_or_null("VisualLayer")
 		return _visual_layer_cache
 
-const BASE: int = 4 
-
-const ID_WATER: int = 0
-const ID_DARK_GRASS: int = 1
-const ID_MEDIUM_GRASS: int = 2
-const ID_LIGHT_GRASS: int = 3
+const BASE: int = 4
 
 const X_OFFSET_DARK: int = 0
-const X_OFFSET_MEDIUM: int = 4 
+const X_OFFSET_MEDIUM: int = 4
 const X_OFFSET_LIGHT: int = 8
 
 var _visual_layer_cache: TileMapLayer = null
 
 @onready var tile_to_source_array: Array[Vector2i] = _generate_tile_array()
+
+func _ready() -> void:
+	Global.autotiler = self
 
 func refresh_visual_layer() -> void:
 	var layer := visual_layer
@@ -46,7 +44,6 @@ func refresh_visual_layer() -> void:
 		var atlas_coord := tile_to_source_array[array_index]
 		layer.set_cell(cell, 0, atlas_coord)
 
-
 func get_tile_index(coord: Vector2i) -> int:
 	var c00 := _get_terrain_at(coord + Vector2i(-1, -1))
 	var c01 := _get_terrain_at(coord + Vector2i(-1,  0))
@@ -55,14 +52,11 @@ func get_tile_index(coord: Vector2i) -> int:
 	
 	return (c00 * 64) + (c01 * 16) + (c10 * 4) + c11
 
-
 func _get_terrain_at(coord: Vector2i) -> int:
 	return _get_terrain_from_atlas(get_cell_atlas_coords(coord))
 
-
 func _get_terrain_from_atlas(atlas: Vector2i) -> int:
-	return atlas.x if atlas.x != -1 else ID_WATER
-
+	return atlas.x if atlas.x != -1 else Util.TerrainType.ID_WATER
 
 func _generate_tile_array() -> Array[Vector2i]:
 	var arr: Array[Vector2i] = []
@@ -77,9 +71,9 @@ func _generate_tile_array() -> Array[Vector2i]:
 	]
 	
 	var transitions := [
-		[ID_WATER, ID_DARK_GRASS, X_OFFSET_DARK],
-		[ID_DARK_GRASS, ID_MEDIUM_GRASS, X_OFFSET_MEDIUM],
-		[ID_MEDIUM_GRASS, ID_LIGHT_GRASS, X_OFFSET_LIGHT]
+		[Util.TerrainType.ID_WATER, Util.TerrainType.ID_DARK_GRASS, X_OFFSET_DARK],
+		[Util.TerrainType.ID_DARK_GRASS, Util.TerrainType.ID_MEDIUM_GRASS, X_OFFSET_MEDIUM],
+		[Util.TerrainType.ID_MEDIUM_GRASS, Util.TerrainType.ID_LIGHT_GRASS, X_OFFSET_LIGHT]
 	]
 	
 	for t in transitions:

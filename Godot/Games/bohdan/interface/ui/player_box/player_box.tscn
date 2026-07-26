@@ -2,7 +2,6 @@
 
 [ext_resource type="PackedScene" uid="uid://djyg26f55ld1e" path="res://interface/ui/player_box/player_info/player_info.tscn" id="1_0e8ho"]
 [ext_resource type="PackedScene" uid="uid://b6jbanpkuaiin" path="res://interface/ui/faction_bar/faction_bar.tscn" id="2_yeed3"]
-[ext_resource type="Texture2D" uid="uid://d2mqxyp0v1k77" path="res://interface/ui/wood.png" id="3_rrrec"]
 [ext_resource type="PackedScene" uid="uid://dplqtdwpmp4ga" path="res://entities/card/card.tscn" id="4_k8ycp"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rqiw2"]
@@ -10,11 +9,11 @@ bg_color = Color(0.6, 0.6, 0.6, 0)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gdt2y"]
 bg_color = Color(0.24705882, 0.12156863, 0, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 4
-border_width_bottom = 8
-border_color = Color(0, 0, 0, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.10980392, 0.050980393, 0.003921569, 1)
 corner_radius_top_left = 8
 corner_radius_top_right = 8
 corner_radius_bottom_right = 8
@@ -23,8 +22,8 @@ anti_aliasing = false
 
 [node name="PlayerBox" type="PanelContainer" unique_id=1826194959]
 custom_minimum_size = Vector2(300, 150)
-offset_right = 200.0
-offset_bottom = 94.0
+offset_right = 343.0
+offset_bottom = 152.0
 pivot_offset_ratio = Vector2(1, 0)
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -61,13 +60,6 @@ layout_mode = 2
 [node name="CardPanel" type="PanelContainer" parent="VBoxContainer" unique_id=232496688]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_gdt2y")
-
-[node name="TextureRect" type="TextureRect" parent="VBoxContainer/CardPanel" unique_id=1291344550]
-show_behind_parent = true
-layout_mode = 2
-texture = ExtResource("3_rrrec")
-expand_mode = 1
-stretch_mode = 6
 
 [node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/CardPanel" unique_id=259643622]
 layout_mode = 2

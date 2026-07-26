@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://cvpffyqln6k6h"]
 
-[ext_resource type="Texture2D" path="res://entities/structures/static_structures.png" id="1_tkrgt"]
 [ext_resource type="Script" uid="uid://c2sb774ed2csm" path="res://entities/structures/capital/capital.gd" id="1_yo8bo"]
+[ext_resource type="Texture2D" uid="uid://d2w2hhf4maj36" path="res://entities/structures/capital/static_capital.png" id="2_rnhuy"]
 [ext_resource type="Texture2D" uid="uid://bvmbh1y1hburf" path="res://entities/structures/capital/animated_capital.png" id="2_yo8bo"]
 [ext_resource type="Texture2D" uid="uid://iofpxk8vy0s0" path="res://entities/structures/factions.png" id="3_08hf7"]
 
@@ -15,8 +15,7 @@ current_faction = 4
 animation_speed_fps = 2.0
 
 [node name="Base" type="Sprite2D" parent="." unique_id=34203932]
-texture = ExtResource("1_tkrgt")
-region_enabled = true
+texture = ExtResource("2_rnhuy")
 region_rect = Rect2(16, 0, 16, 16)
 
 [node name="Roof" type="Sprite2D" parent="." unique_id=186695817]

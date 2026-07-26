@@ -1,15 +1,7 @@
 class_name BaseBuilding
 extends Node2D
 
-enum Faction { 
-	NEUTRAL,
-	KING,
-	CHRIST,
-	DRUID,
-	SATAN
-}
-
-@export var current_faction: Faction = Faction.NEUTRAL:
+@export var current_faction: Util.Faction = Util.Faction.NEUTRAL:
 	set(value):
 		current_faction = value
 		_update_visuals()
@@ -37,14 +29,14 @@ func _update_visuals() -> void:
 		return
 		
 	if faction_symbol:
-		faction_symbol.visible = current_faction != Faction.NEUTRAL
+		faction_symbol.visible = current_faction != Util.Faction.NEUTRAL
 		if faction_symbol.visible and (faction_symbol.hframes * faction_symbol.vframes > 1):
 			faction_symbol.frame = current_faction - 1
 			
 	if base_sprite:
 		base_sprite.visible = true 
 		if base_sprite.hframes * base_sprite.vframes > 1:
-			if current_faction == Faction.NEUTRAL:
+			if current_faction == Util.Faction.NEUTRAL:
 				base_sprite.frame = 0
 			else:
 				base_sprite.frame = current_faction - 1

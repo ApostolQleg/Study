@@ -1,14 +1,13 @@
 extends Node2D
 
 @export var zoom_speed := 0.05
-@export var min_zoom := 0.05
+@export var min_zoom := 0.1
 @export var max_zoom := 10.0
 @export var drag_speed := 1.0
 
-@export var world_bounds := Rect2(-4000, -3000, 8000, 6000)
-
 var is_pressed := false
 var e := Vector2.ZERO
+var world_bounds : Rect2
 
 @onready var camera: Camera2D = %Camera2D
 
@@ -43,6 +42,9 @@ func _unhandled_input(event: InputEvent) -> void:
 		clamp_camera_position()
 
 func change_zoom(factor: float) -> void:
+	if world_bounds.size == Vector2.ZERO:
+		return
+	
 	var mouse_screen_pos = get_viewport().get_mouse_position()
 	var screen_center = get_viewport().get_visible_rect().size / 2.0
 	var screen_offset = mouse_screen_pos - screen_center
@@ -69,7 +71,11 @@ func change_zoom(factor: float) -> void:
 	
 	clamp_camera_position()
 
+
 func clamp_camera_position() -> void:
+	if world_bounds.size == Vector2.ZERO:
+		return
+	
 	var viewport_size = get_viewport().get_visible_rect().size
 	
 	var world_view_size = viewport_size / camera.zoom.x
@@ -85,3 +91,8 @@ func clamp_camera_position() -> void:
 	
 	camera.global_position.x = clamp(camera.global_position.x, min_x, max_x)
 	camera.global_position.y = clamp(camera.global_position.y, min_y, max_y)
+
+func update_world_bounds(new_bounds: Rect2) -> void:
+	world_bounds = new_bounds
+	if is_node_ready() and camera:
+		clamp_camera_position()

@@ -7,7 +7,7 @@ func _update_visuals() -> void:
 	if roof_sprite:
 		roof_sprite.visible = true
 		
-		if current_faction == Faction.NEUTRAL:
+		if current_faction == Util.Faction.NEUTRAL:
 			roof_sprite.frame_coords.y = 0
 		else:
 			roof_sprite.frame_coords.y = current_faction - 1
