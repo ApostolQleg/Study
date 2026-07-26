@@ -8,7 +8,7 @@ signal world_generated(bounds: Rect2)
 @export var ocean_height: int = 900
 
 @export_group("Base Map Settings")
-@export var map_radius: int = 50
+@export var map_radius: int = 100
 @export var padding: int = 5
 @export var tile_size: int = 16
 @export var threshold: float = 0.35
@@ -62,22 +62,35 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("generate_map"):
 		generate_new_map()
 
-func _reposition_player(grid: Dictionary) -> void:
-	var player = get_parent().get_node_or_null("Player")
-	if not player: 
-		return
-		
-	var spawn_cell := _find_nearest_land(grid)
-				
-	var world_x := float(spawn_cell.x * tile_size + (tile_size / 2.0))
-	var world_y := float(spawn_cell.y * tile_size + (tile_size / 2.0))
-	
-	player.position = Vector2(world_x, world_y)
-
 func _init_seeds() -> void:
-	randomize()
-	noise.seed = randi()
-	noise_grass.seed = randi()
+	noise.seed = Global.rng.randi()
+	noise_grass.seed = Global.rng.randi()
+
+func _init_rivers() -> Array:
+	var rivers: Array[Dictionary] = []
+	
+	for i in range(0, river_quantity):
+		var river_angle := Global.rng.randf_range(0.0, PI * 2.0)
+		var river_length := map_radius * RIVER_LENGTH_FACTOR
+		var river_parts := Global.rng.randi_range(2, river_quantity + 3)
+		var step_size := river_length / river_parts
+		var bridges: Array[float] = []
+		for j in range(1, river_parts):
+			var bridge_step := (j * step_size) - (river_length / 2)
+			var jitter := Global.rng.randf_range(-step_size * BRIDGE_JITTER_FACTOR, step_size * BRIDGE_JITTER_FACTOR)
+			bridges.append(bridge_step + jitter)
+		
+		var river := {
+			"cos_a": cos(river_angle),
+			"sin_a": sin(river_angle),
+			"width": Global.rng.randi_range(river_avarage_width - 1, river_avarage_width + 1),
+			"offset": Global.rng.randf_range(-map_radius * RIVER_AVG_OFFSET, map_radius * RIVER_AVG_OFFSET),
+			"bridges": bridges
+		}
+		
+		rivers.append(river)
+	
+	return rivers
 
 func _find_nearest_land(grid: Dictionary, start_cell: Vector2i = Vector2i.ZERO) -> Vector2i:
 	if grid.get(start_cell, Util.CellType.WATER) == Util.CellType.LAND:
@@ -112,32 +125,6 @@ func _generate_base_grid() -> Dictionary:
 				
 	return grid
 
-func _init_rivers() -> Array:
-	var rivers: Array[Dictionary] = []
-	
-	for i in range(0, river_quantity):
-		var river_angle := randf_range(0.0, PI * 2.0)
-		var river_length := map_radius * RIVER_LENGTH_FACTOR
-		var river_parts := randi_range(2, river_quantity + 3)
-		var step_size := river_length / river_parts
-		var bridges: Array[float] = []
-		for j in range(1, river_parts):
-			var bridge_step := (j * step_size) - (river_length / 2)
-			var jitter := randf_range(-step_size * BRIDGE_JITTER_FACTOR, step_size * BRIDGE_JITTER_FACTOR)
-			bridges.append(bridge_step + jitter)
-		
-		var river := {
-			"cos_a": cos(river_angle),
-			"sin_a": sin(river_angle),
-			"width": randi_range(river_avarage_width - 1, river_avarage_width + 1),
-			"offset": randf_range(-map_radius * RIVER_AVG_OFFSET, map_radius * RIVER_AVG_OFFSET),
-			"bridges": bridges
-		}
-		
-		rivers.append(river)
-	
-	return rivers
-
 func _carve_rivers(grid: Dictionary) -> void:
 	var rivers := _init_rivers()
 	
@@ -164,7 +151,7 @@ func _check_cell_for_river(cell: Vector2i, river: Dictionary) -> bool:
 	
 	if abs(final_distance) <= river["width"] / 2.0:
 		for bridge_pos in river["bridges"]:
-			var bridge_width := randi_range(3, bridge_avg_width + 2)
+			var bridge_width := Global.rng.randi_range(3, bridge_avg_width + 2)
 			if abs(distance_along_river - bridge_pos) <= bridge_width / 2.0:
 				return false
 		return true
@@ -292,6 +279,23 @@ func _draw_to_autotiler(terrain_map: Dictionary) -> void:
 		if tile_id != Util.TerrainType.ID_WATER:
 			autotiler.set_cell(cell, 0, Vector2i(tile_id, 0))
 
+func get_world_bounds() -> Rect2:
+	var half_w_px := (ocean_width / 2.0) * tile_size
+	var half_h_px := (ocean_height / 2.0) * tile_size
+	var top_left := Vector2(-half_w_px, -half_h_px)
+	var size := Vector2(ocean_width * tile_size, ocean_height * tile_size)
+	return Rect2(top_left, size)
+
+func _update_ocean_background(bounds: Rect2) -> void:
+	var ocean_bg = get_parent().get_node_or_null("OceanBackground") as TextureRect
+	if not ocean_bg:
+		return
+		
+	ocean_bg.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+	ocean_bg.stretch_mode = TextureRect.STRETCH_TILE
+	ocean_bg.position = bounds.position
+	ocean_bg.size = bounds.size
+
 func generate_new_map() -> void:
 	if not autotiler: return
 	autotiler.clear()
@@ -306,8 +310,6 @@ func generate_new_map() -> void:
 		
 	_filter_isolated_islands(grid)
 		
-	_reposition_player(grid)
-		
 	var terrain_map := _generate_terrain_biomes(grid)
 	_fix_terrain_transitions(terrain_map)
 	_draw_to_autotiler(terrain_map)
@@ -318,20 +320,3 @@ func generate_new_map() -> void:
 	_update_ocean_background(bounds)
 	
 	world_generated.emit(get_world_bounds())
-
-func _update_ocean_background(bounds: Rect2) -> void:
-	var ocean_bg = get_parent().get_node_or_null("OceanBackground") as TextureRect
-	if not ocean_bg:
-		return
-		
-	ocean_bg.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
-	ocean_bg.stretch_mode = TextureRect.STRETCH_TILE
-	ocean_bg.position = bounds.position
-	ocean_bg.size = bounds.size
-
-func get_world_bounds() -> Rect2:
-	var half_w_px := (ocean_width / 2.0) * tile_size
-	var half_h_px := (ocean_height / 2.0) * tile_size
-	var top_left := Vector2(-half_w_px, -half_h_px)
-	var size := Vector2(ocean_width * tile_size, ocean_height * tile_size)
-	return Rect2(top_left, size)
