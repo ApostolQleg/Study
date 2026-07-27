@@ -2,6 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://buwf0dj6vh0fj" path="res://world/camera/camera_manager.tscn" id="1_7mycd"]
 [ext_resource type="Script" uid="uid://c50iechxpmlde" path="res://main.gd" id="1_272bh"]
+[ext_resource type="Script" uid="uid://dckc3vih4fjhp" path="res://systems/structure_spawner.gd" id="2_5vw27"]
 [ext_resource type="Texture2D" uid="uid://cbycfbbuphm32" path="res://world/tilemaps/terrain_placeholders.png" id="2_7mycd"]
 [ext_resource type="Script" uid="uid://yq0u2iu6cxss" path="res://world/dual_grid_autotiler.gd" id="3_5vw27"]
 [ext_resource type="Texture2D" uid="uid://d3q7jy00niles" path="res://world/tilemaps/terrain_v9.png" id="4_272bh"]
@@ -82,8 +83,6 @@ sources/0 = SubResource("TileSetAtlasSource_tipki")
 process_mode = 3
 script = ExtResource("1_272bh")
 
-[node name="Systems" type="Node" parent="." unique_id=1078153870]
-
 [node name="World" type="Node2D" parent="." unique_id=897136923]
 process_mode = 1
 y_sort_enabled = true
@@ -126,6 +125,11 @@ y_sort_enabled = true
 
 [node name="EffectRoot" type="Node2D" parent="World" unique_id=519269940]
 unique_name_in_owner = true
+
+[node name="Systems" type="Node" parent="." unique_id=1078153870]
+
+[node name="StructureSpawner" type="Node" parent="Systems" unique_id=599715371]
+script = ExtResource("2_5vw27")
 
 [node name="HudLayer" type="CanvasLayer" parent="." unique_id=944525096]
 process_mode = 1

@@ -34,10 +34,11 @@ window/stretch/mode="canvas_items"
 
 folder_colors={
 "res://assets/": "purple",
-"res://entities/": "blue",
+"res://entities/": "red",
 "res://globals/": "yellow",
 "res://interface/": "green",
-"res://world/": "red"
+"res://systems/": "gray",
+"res://world/": "blue"
 }
 
 [gui]

@@ -2,6 +2,7 @@ class_name MapGenerator
 extends Node
 
 signal world_generated(bounds: Rect2)
+signal terrain_ready(grid: Dictionary)
 
 @export_group("Ocean Settings")
 @export var ocean_width: int = 1600
@@ -57,6 +58,8 @@ func _ready() -> void:
 	noise_grass = FastNoiseLite.new()
 	noise_grass.noise_type = FastNoiseLite.TYPE_SIMPLEX
 	noise_grass.frequency = grass_noise_frequency
+	
+	Global.map_generator = self
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("generate_map"):
@@ -309,7 +312,9 @@ func generate_new_map() -> void:
 		_smooth_river_banks(grid)
 		
 	_filter_isolated_islands(grid)
-		
+	
+	terrain_ready.emit(grid)
+	
 	var terrain_map := _generate_terrain_biomes(grid)
 	_fix_terrain_transitions(terrain_map)
 	_draw_to_autotiler(terrain_map)
@@ -320,3 +325,4 @@ func generate_new_map() -> void:
 	_update_ocean_background(bounds)
 	
 	world_generated.emit(get_world_bounds())
+	
