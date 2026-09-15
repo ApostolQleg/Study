@@ -27,9 +27,21 @@
     <ClInclude Include="Apostol%27s Paint.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="action1.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="action2.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Apostol%27s Paint.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="action1.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="action2.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

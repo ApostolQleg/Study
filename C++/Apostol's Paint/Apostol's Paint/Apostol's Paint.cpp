@@ -3,6 +3,8 @@
 
 #include "framework.h"
 #include "Apostol's Paint.h"
+#include "action1.h"
+#include "action2.h"
 
 #define MAX_LOADSTRING 100
 
@@ -16,9 +18,6 @@ ATOM                MyRegisterClass(HINSTANCE hInstance);
 BOOL                InitInstance(HINSTANCE, int);
 LRESULT CALLBACK    WndProc(HWND, UINT, WPARAM, LPARAM);
 INT_PTR CALLBACK    About(HWND, UINT, WPARAM, LPARAM);
-
-void Action1(HWND hDlg);
-void Action2(HWND hDlg);
 
 int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
                      _In_opt_ HINSTANCE hPrevInstance,
@@ -135,10 +134,10 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             switch (wmId)
             {
             case ID_ACTIONS_ACTION1:
-                Action1(hWnd);
+                FUNC_ACT1(hInst, hWnd);
 				break;
             case ID_ACTIONS_ACTION2:
-                Action2(hWnd);
+                FUNC_ACT2(hInst, hWnd);
                 break;
             case IDM_ABOUT:
                 DialogBox(hInst, MAKEINTRESOURCE(IDD_ABOUTBOX), hWnd, About);
@@ -186,16 +185,4 @@ INT_PTR CALLBACK About(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
         break;
     }
     return (INT_PTR)FALSE;
-}
-
-// Message handler for Action1 box.
-void Action1(HWND hDlg)
-{
-    //my code
-}
-
-// Message handler for Action2 box.
-void Action2(HWND hDlg)
-{
-    //my code
 }

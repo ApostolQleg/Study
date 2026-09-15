@@ -139,12 +139,16 @@
     </Manifest>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="action1.h" />
+    <ClInclude Include="action2.h" />
     <ClInclude Include="Apostol%27s Paint.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="action1.cpp" />
+    <ClCompile Include="action2.cpp" />
     <ClCompile Include="Apostol%27s Paint.cpp" />
   </ItemGroup>
   <ItemGroup>
