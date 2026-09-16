@@ -24,7 +24,7 @@ This space serves as a centralized archive for my academic coursework, lecture n
 <a href="mailto:apostololeg0@gmail.com"><img src="https://github.com/user-attachments/assets/eb996e7a-935e-4496-a5a7-bc098f60ccd2" height="32" align="absmiddle" alt="Email"></a>
 <a href="https://www.youtube.com/@ApostolOleg"><img src="https://github.com/user-attachments/assets/1a4b5c08-4ce5-4343-b13e-801a91863148" height="32" align="absmiddle" alt="Youtube"></a>
 <a href="https://x.com/ApostolQleg"><img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/twitter-dark.svg" height="32" align="absmiddle" alt="X"></a>
-<a href="https://www.reddit.com/user/ApostolQleg/"><img src="https://github.com/user-attachments/assets/0019cb06-4e9c-4334-b190-c2c35a0474cc" height="32" align="absmiddle" alt="Reddit"></a>
+<a href="https://www.reddit.com/user/ApostolQleg/"><img src="https://github.com/user-attachments/assets/a852d4f2-ec70-4d27-851e-9a92eaf298e6" height="32" align="absmiddle" alt="Reddit"></a>
 
 ## License
 
