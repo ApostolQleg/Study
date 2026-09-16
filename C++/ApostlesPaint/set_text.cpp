@@ -24,11 +24,11 @@ static INT_PTR CALLBACK SetText(HWND hDlg, UINT message, WPARAM wParam, LPARAM l
         {
         case IDOK:
             GetDlgItemText(hDlg, IDC_TEXT, szText, MAX_LOADSTRING);
-            EndDialog(hDlg, IDOK);
+            EndDialog(hDlg, 1);
             return (INT_PTR)TRUE;
 
         case IDCANCEL:
-            EndDialog(hDlg, IDCANCEL);
+            EndDialog(hDlg, 0);
             return (INT_PTR)TRUE;
         }
         break;

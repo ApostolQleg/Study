@@ -143,7 +143,10 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
                 }
                 break;
             case ID_ACTIONS_SETNUMBER:
-                FUNC_SET_NUM(hInst, hWnd);
+                if (FUNC_SET_NUM(hInst, hWnd) == IDOK) 
+                {
+                    InvalidateRect(hWnd, NULL, TRUE);
+                }
                 break;
             case IDM_EXIT:
                 DestroyWindow(hWnd);
@@ -162,6 +165,9 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             {
                 TextOutW(hdc, 20, 20, szText, (int)wcslen(szText));
             }
+
+            _itow_s(pos, szNumber, MAX_LOADSTRING, 10);
+            TextOutW(hdc, 20, 40, szNumber, (int)wcslen(szNumber));
 
             EndPaint(hWnd, &ps);
         }
