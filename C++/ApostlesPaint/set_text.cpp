@@ -2,6 +2,8 @@
 #include "framework.h"
 #include "set_text.h"
 
+WCHAR szText[MAX_LOADSTRING] = { 0 };
+
 static INT_PTR CALLBACK SetText(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam);
 
 extern INT_PTR FUNC_SET_TEXT(HINSTANCE hInst, HWND hWnd)
@@ -18,9 +20,15 @@ static INT_PTR CALLBACK SetText(HWND hDlg, UINT message, WPARAM wParam, LPARAM l
         return (INT_PTR)TRUE;
 
     case WM_COMMAND:
-        if (LOWORD(wParam) == IDOK || LOWORD(wParam) == IDCANCEL)
+        switch (LOWORD(wParam))
         {
-            EndDialog(hDlg, LOWORD(wParam));
+        case IDOK:
+            GetDlgItemText(hDlg, IDC_TEXT, szText, MAX_LOADSTRING);
+            EndDialog(hDlg, IDOK);
+            return (INT_PTR)TRUE;
+
+        case IDCANCEL:
+            EndDialog(hDlg, IDCANCEL);
             return (INT_PTR)TRUE;
         }
         break;

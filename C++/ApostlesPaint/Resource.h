@@ -13,9 +13,9 @@
 #define IDC_APOSTLESPAINT               109
 #define IDR_MAINFRAME                   128
 #define IDD_DIALOG_SET_TEXT             129
-#define IDD_DIALOG1                     130
 #define IDD_DIALOG_SET_NUM              130
 #define IDC_EDIT1                       1000
+#define IDC_TEXT                        1000
 #define IDC_SCROLLBAR1                  1001
 #define ID_ACTIONS_SETTEXT              32771
 #define ID_ACTIONS_SETNUMBER            32772

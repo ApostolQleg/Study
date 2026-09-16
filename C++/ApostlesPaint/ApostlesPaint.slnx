@@ -3,5 +3,5 @@
     <Platform Name="x64" />
     <Platform Name="x86" />
   </Configurations>
-  <Project Path="ApostlesPaint.vcxproj" />
+  <Project Path="ApostlesPaint.vcxproj" Id="bd283d15-c3e9-414f-a02c-ac47990d6fe0" />
 </Solution>

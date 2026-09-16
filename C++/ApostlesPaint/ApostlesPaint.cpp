@@ -8,8 +8,6 @@
 #include "set_text.h"
 #include "set_num.h"
 
-#define MAX_LOADSTRING 100
-
 // Global Variables:
 HINSTANCE hInst;                                // current instance
 WCHAR szTitle[MAX_LOADSTRING];                  // The title bar text
@@ -139,7 +137,10 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
                 DialogBox(hInst, MAKEINTRESOURCE(IDD_ABOUTBOX), hWnd, About);
                 break;
             case ID_ACTIONS_SETTEXT:
-                FUNC_SET_TEXT(hInst, hWnd);
+                if (FUNC_SET_TEXT(hInst, hWnd) == IDOK)
+                {
+                    InvalidateRect(hWnd, NULL, TRUE);
+                }
                 break;
             case ID_ACTIONS_SETNUMBER:
                 FUNC_SET_NUM(hInst, hWnd);
@@ -155,8 +156,13 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
     case WM_PAINT:
         {
             PAINTSTRUCT ps;
-            BeginPaint(hWnd, &ps);
-            // TODO: Add any drawing code here...
+            HDC hdc = BeginPaint(hWnd, &ps);
+
+            if (szText[0] != L'\0')
+            {
+                TextOutW(hdc, 20, 20, szText, (int)wcslen(szText));
+            }
+
             EndPaint(hWnd, &ps);
         }
         break;
