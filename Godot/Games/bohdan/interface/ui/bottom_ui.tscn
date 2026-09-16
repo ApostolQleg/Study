@@ -1,0 +1,149 @@
+[gd_scene format=3 uid="uid://b04s3p1op00hb"]
+
+[ext_resource type="Script" uid="uid://yj4m318bed1t" path="res://interface/ui/bottom_ui.gd" id="1_v0xjv"]
+[ext_resource type="PackedScene" uid="uid://djyg26f55ld1e" path="res://interface/ui/player_box/player_info/player_info.tscn" id="1_wcrnw"]
+[ext_resource type="Script" uid="uid://dpdijfdwmr1kn" path="res://interface/ui/monolith_background.gd" id="2_sotd7"]
+[ext_resource type="PackedScene" uid="uid://b1jjbg8moxbos" path="res://interface/ui/tab_button/tab_button.tscn" id="2_v0xjv"]
+[ext_resource type="PackedScene" uid="uid://csoyif27iloup" path="res://interface/ui/coin_indicator/coin_indicator.tscn" id="3_sotd7"]
+[ext_resource type="PackedScene" uid="uid://dplqtdwpmp4ga" path="res://entities/card/card.tscn" id="4_u2teu"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wcrnw"]
+
+[node name="BottomUI" type="Control" unique_id=851171250]
+layout_mode = 3
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -256.0
+offset_bottom = 18.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 2
+script = ExtResource("1_v0xjv")
+
+[node name="MonolithBackground" type="Control" parent="." unique_id=2029253267 node_paths=PackedStringArray("main_panel", "active_tab")]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("2_sotd7")
+main_panel = NodePath("../ContentLayout/BottomRow")
+active_tab = NodePath("../ContentLayout/MiddleRow/Margin/TabButtons/TabButton")
+
+[node name="ContentLayout" type="VBoxContainer" parent="." unique_id=890185498]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -282.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="UpperRow" type="HBoxContainer" parent="ContentLayout" unique_id=219671202]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Margin" type="MarginContainer" parent="ContentLayout/UpperRow" unique_id=1098360072]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="PlayerInfo" parent="ContentLayout/UpperRow/Margin" unique_id=588894285 instance=ExtResource("1_wcrnw")]
+layout_mode = 2
+
+[node name="MiddleRow" type="HBoxContainer" parent="ContentLayout" unique_id=994311779]
+layout_mode = 2
+
+[node name="Margin" type="MarginContainer" parent="ContentLayout/MiddleRow" unique_id=686496607]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 20
+
+[node name="TabButtons" type="HBoxContainer" parent="ContentLayout/MiddleRow/Margin" unique_id=378152919]
+z_index = 1
+layout_mode = 2
+mouse_filter = 0
+theme_override_constants/separation = 8
+
+[node name="TabButton" parent="ContentLayout/MiddleRow/Margin/TabButtons" unique_id=252686908 instance=ExtResource("2_v0xjv")]
+layout_mode = 2
+
+[node name="TabButton2" parent="ContentLayout/MiddleRow/Margin/TabButtons" unique_id=503407891 instance=ExtResource("2_v0xjv")]
+layout_mode = 2
+
+[node name="TabButton3" parent="ContentLayout/MiddleRow/Margin/TabButtons" unique_id=1332827694 instance=ExtResource("2_v0xjv")]
+layout_mode = 2
+
+[node name="Spacer" type="Control" parent="ContentLayout/MiddleRow" unique_id=1634914093]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+
+[node name="Margin2" type="MarginContainer" parent="ContentLayout/MiddleRow" unique_id=1610041070]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="CoinIndicator" parent="ContentLayout/MiddleRow/Margin2" unique_id=1581946980 instance=ExtResource("3_sotd7")]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="BottomRow" type="MarginContainer" parent="ContentLayout" unique_id=994092665]
+layout_mode = 2
+
+[node name="BottomPanel" type="PanelContainer" parent="ContentLayout/BottomRow" unique_id=1715356623]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_wcrnw")
+
+[node name="Margin" type="MarginContainer" parent="ContentLayout/BottomRow/BottomPanel" unique_id=451656491]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ContentLayout/BottomRow/BottomPanel/Margin" unique_id=1519810819]
+layout_mode = 2
+
+[node name="ActiveCards" type="HBoxContainer" parent="ContentLayout/BottomRow/BottomPanel/Margin/HBoxContainer" unique_id=972351969]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="Card" parent="ContentLayout/BottomRow/BottomPanel/Margin/HBoxContainer/ActiveCards" unique_id=845550508 instance=ExtResource("4_u2teu")]
+layout_mode = 2
+current_faction = 1
+
+[node name="Spacer" type="Control" parent="ContentLayout/BottomRow/BottomPanel/Margin/HBoxContainer" unique_id=1250690698]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 1
+
+[node name="InventoryCards" type="HBoxContainer" parent="ContentLayout/BottomRow/BottomPanel/Margin/HBoxContainer" unique_id=1807051878]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Card" parent="ContentLayout/BottomRow/BottomPanel/Margin/HBoxContainer/InventoryCards" unique_id=477021570 instance=ExtResource("4_u2teu")]
+layout_mode = 2
+current_faction = 1
+
+[node name="Card2" parent="ContentLayout/BottomRow/BottomPanel/Margin/HBoxContainer/InventoryCards" unique_id=858328935 instance=ExtResource("4_u2teu")]
+layout_mode = 2
+current_faction = 2
+
+[node name="Card3" parent="ContentLayout/BottomRow/BottomPanel/Margin/HBoxContainer/InventoryCards" unique_id=957945213 instance=ExtResource("4_u2teu")]
+layout_mode = 2
+current_faction = 3
+
+[node name="Card4" parent="ContentLayout/BottomRow/BottomPanel/Margin/HBoxContainer/InventoryCards" unique_id=1376114267 instance=ExtResource("4_u2teu")]
+layout_mode = 2
+current_faction = 4
