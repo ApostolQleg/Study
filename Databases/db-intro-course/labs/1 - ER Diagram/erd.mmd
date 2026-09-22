@@ -1,0 +1,92 @@
+erDiagram
+  user {
+    UUID id  "PK"  
+    VARCHAR(30) nickname  "UK"  
+    VARCHAR(100) name  ""  
+    TEXT email  "UK"  
+    TEXT bio  ""  
+    TEXT password_hash  ""  
+    TEXT avatar_url  ""  
+    TEXT[] social_networks  ""  
+    INTEGER current_streak  ""  
+    INTEGER max_streak  ""  
+    BOOLEAN watched_anime_today  ""  
+    ENUM profile_frame  ""  
+    ENUM profile_background  ""  
+  }
+
+  anime {
+    UUID id  "PK"  
+    TEXT slug  "UK"  
+    TEXT title_ua  ""  
+    TEXT title_en  ""  
+    TEXT title_original  ""  
+    TEXT description  ""  
+    TEXT cover_url  ""  
+    TEXT studio  ""
+    ENUM type "ona/ova/tv/movie/special"
+    INTEGER mal_id  ""  
+    INTEGER anilist_id  ""  
+    INTEGER hikka_id  ""  
+    INTEGER imdb_id  ""  
+    INTEGER episodes_duration  ""  
+    ENUM status  "anounced/ongoing/finished/dropped"  
+    ENUM[] genres  "comedy/tragedy/isekai etc"  
+    INTEGER year  ""  
+    INTEGER pegi_age_restriction  ""  
+  }
+
+  episode {
+    BIGSERIAL id "PK"
+    TEXT source_url  ""  
+    UUID anime_id  "FK"  
+    TEXT episode  ""
+    TEXT studio  ""
+    ENUM type  "dub/sub"  
+  }
+
+  comment {
+    BIGSERIAL comment_id "PK"
+    UUID author_id "FK"
+    UUID anime_id  "FK"
+    INTEGER grade
+    TEXT content
+    DATE date
+  }
+
+  room {
+    TEXT code "PK"
+    UUID[] active_users
+    BIGINT[] episodes_playlist
+    UUID owner_id "FK"
+    BOOLEAN playing
+    TIMESTAMP play_timestamp
+    INTEGER play_offset
+    BOOLEAN public
+  }
+
+  animeListUnit {
+    UUID user_id "PK FK"
+    UUID anime_id "PK FK"
+    INTEGER watched_episodes
+    INTEGER repeat_times
+    DATE watch_start
+    ENUM type "finished/watching/delayed/dropped"
+  }
+
+  upcomingEpisodes {
+    UUID anime_id "PK FK"
+    TIMESTAMP episode_date
+    TEXT episode_name "PK" 
+  }
+
+  anime ||--O{ animeListUnit : "Animes are present in many users' list (associative entity)"
+  user ||--O{ animeListUnit : "Each user has many animes in his list (associative entity)" 
+  room |O--|{ user : "Multiple users participate in one room"
+  room |O--|| user : "Each room belongs to user"
+  room }O--O{ episode : "Multiple episodes in the room's playlist"
+  user ||--O{ comment : "Users are able to write many comments"
+  anime ||--O{ comment : "One anime is able to have many comments"
+  anime ||--O{ episode : "One anime has many episodes (or doesn't if it's only anounced)"
+  anime ||--O{ upcomingEpisodes : "One ongoing anime is able to have many upcoming episodes"
+
