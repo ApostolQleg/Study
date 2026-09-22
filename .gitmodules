@@ -19,3 +19,6 @@
 [submodule "JS/labs-Computer-Networks-Basics"]
 	path = JS/labs-Computer-Networks-Basics
 	url = https://github.com/ApostolQleg/labs-Computer-Networks-Basics
+[submodule "Agents/KPI2"]
+	path = Agents/KPI2
+	url = https://github.com/ApostolQleg/KPI2
