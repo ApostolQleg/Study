@@ -1,0 +1,26 @@
+{
+  "name": "server",
+  "module": "src/index.ts",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "serve": "bun run ./src/index.ts",
+    "generate": "bunx prisma generate"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^2.5.13",
+    "@types/bun": "latest",
+    "@types/node": "^26.5.1",
+    "@types/pg": "^8.23.1",
+    "prisma": "^7"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "dependencies": {
+    "@prisma/adapter-pg": "^7.10.0",
+    "@prisma/client": "^7",
+    "fastify": "^5.12.4",
+    "pg": "^8.23.0"
+  }
+}
